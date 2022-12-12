@@ -1,0 +1,36 @@
+.mainBox{
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    margin: 0 auto;
+    border: 2px solid black;
+    justify-content: space-around;
+    margin-top: 100px;
+    height: 800px;
+    width: 500px;
+    box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
+}
+
+
+.card{
+    width: 200px;
+    height: 300px;
+    border: 2px solid teal;
+    border-radius: 10px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.card p{
+    width: 100%;
+
+}
+
+.card button{
+    width: 50%;
+    background-color: orange ;
+    border-radius: 20px;
+}
+
+
