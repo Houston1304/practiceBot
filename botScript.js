@@ -150,12 +150,17 @@ for (let card of listCard) {
     buttonMinus.addEventListener("click", () => {
       basket.map((elem) => {
         if (elem.name === card.name) {
+
           elem.num -= 1;
           if (elem.num !== 0) {
             pCount.textContent = elem.num;
           } else {
             counter.remove();
             div.append(button);
+
+          if (elem.num > 0) {
+            elem.num -= 1;
+            pCount.textContent = elem.num;
           }
         }
       });
