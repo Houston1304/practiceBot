@@ -125,9 +125,6 @@ for (let card of listCard) {
   buttonPlus.id = "plusBtn";
   const buttonMinus = document.createElement("button");
   buttonMinus.id = "minusBtn";
-
-  let sum = 0;
-  
   buttonPlus.addEventListener("click", () => {
     basket.map((elem) => {
       if (elem.name === card.name) {
