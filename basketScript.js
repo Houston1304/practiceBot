@@ -126,13 +126,19 @@ for (let card of listCard) {
   const buttonMinus = document.createElement("button");
   buttonMinus.id = "minusBtn";
 
+  let sum = 0;
   
   buttonPlus.addEventListener("click", () => {
     basket.map((elem) => {
       if (elem.name === card.name) {
         elem.num += 1;
         pAmount.textContent = elem.num;
+
         sum += card.price;
+
+        elem.price = elem.num * card.price;
+        pPrice.textContent = elem.price;
+        sum += elem.price;
         totalPrice.textContent = sum;
       }
     });
@@ -145,6 +151,12 @@ for (let card of listCard) {
           totalPrice.textContent = sum;
           elem.num -= 1;
           pAmount.textContent = elem.num;
+          elem.num -= 1;
+          pAmount.textContent = elem.num;
+          elem.price = elem.num * card.price;
+          pPrice.textContent = elem.price;
+          sum -= elem.price;
+          totalPrice.textContent = sum;
         }
       }
     });
