@@ -132,9 +132,7 @@ for (let card of listCard) {
       if (elem.name === card.name) {
         elem.num += 1;
         pAmount.textContent = elem.num;
-        elem.price = elem.num * card.price;
-        pPrice.textContent = elem.price;
-        sum += elem.price;
+        sum += card.price;
         totalPrice.textContent = sum;
       }
     });
@@ -143,9 +141,7 @@ for (let card of listCard) {
     basket.map((elem) => {
       if (elem.name === card.name) {
         if (elem.num > 0) {
-          elem.price = elem.num * card.price;
-          pPrice.textContent = elem.price;
-          sum -= elem.price;
+          sum -= card.price;
           totalPrice.textContent = sum;
           elem.num -= 1;
           pAmount.textContent = elem.num;
@@ -153,6 +149,7 @@ for (let card of listCard) {
       }
     });
   });
+  pPrice.textContent = card.price;
   buttonPlus.textContent = "+";
   buttonMinus.textContent = "-";
 
