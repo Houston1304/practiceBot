@@ -12,6 +12,7 @@
     box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
     font-family: sans-serif;
     font-size: 16px;
+    padding-bottom: 40px;
 }
 
 
@@ -44,13 +45,11 @@ button{
 
 .checkout {
     position: absolute;
-    bottom: 0%;
+    margin-top: 800px;
     width: 500px;
     background-color: orange;
     padding: 10px;
     border-radius: 10px;
-
-    
 }
 
 .counter {
