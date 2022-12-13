@@ -106,7 +106,7 @@ for (let card of listCard) {
   const mainBasket = document.querySelector(".mainBasket");
 
   const totalPrice = document.querySelector(".totalPrice");
-  totalPrice.textContent = sum;
+  totalPrice.textContent = card.num;
 
   const div = document.createElement("div");
   const pName = document.createElement("p");
@@ -128,18 +128,12 @@ for (let card of listCard) {
   const buttonMinus = document.createElement("button");
   buttonMinus.id = "minusBtn";
 
-  let sum = 0;
-  
   buttonPlus.addEventListener("click", () => {
     basket.map((elem) => {
       if (elem.name === card.name) {
         elem.num += 1;
         pAmount.textContent = elem.num;
         sum += card.price;
-        elem.price = elem.num * card.price;
-        pPrice.textContent = elem.price;
-        sum += elem.price;
-
         totalPrice.textContent = sum;
       }
     });
