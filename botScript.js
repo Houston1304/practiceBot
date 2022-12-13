@@ -157,7 +157,6 @@ for (let card of listCard) {
           } else {
             counter.remove();
             div.append(button);
-
             if (elem.num > 0) {
               elem.num -= 1;
               pCount.textContent = elem.num;
