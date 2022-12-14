@@ -6,7 +6,8 @@
   margin: 0 auto;
   border: 2px solid black;
   justify-content: space-around;
-  height: 44vw;
+  min-height: 500px;
+  max-height: 800px;
   min-width: 300px;
   max-width: 500px;
   box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
