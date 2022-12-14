@@ -6,13 +6,13 @@
   margin: 0 auto;
   border: 2px solid black;
   justify-content: space-around;
+  text-align: center;
   min-height: 500px;
   max-height: 800px;
   min-width: 300px;
   max-width: 500px;
   box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
   border-radius: 10px;
-  text-allign: center;
 }
 
 .product {
@@ -52,6 +52,7 @@
   display: flex;
   justify-content: flex-end;
   margin-right: 5px;
+  
 }
 
 #backBtn{
@@ -59,7 +60,7 @@
   width: 12%;
   background-color: orange;
   border-radius: 10px;
-  
+  font-size: 1.6vw;
 }
 
 #productName {
@@ -81,5 +82,6 @@
   top: 15%;
   left: 55%;
 }
+
 
 
