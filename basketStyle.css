@@ -25,7 +25,7 @@
 }
 
 .product button {
-  text-allign: center;
+  text-align: center;
   width: 10%;
   background-color: orange;
   border-radius: 10px;
@@ -37,7 +37,7 @@
   z-index: 100;
   position: absolute;
   display: flex ;
-  margin-top: 41%;
+  bottom: 0%;
   height: 20px;
   width: 20%;
   background-color: orange;
@@ -80,4 +80,5 @@
   top: 15%;
   left: 55%;
 }
+
 
