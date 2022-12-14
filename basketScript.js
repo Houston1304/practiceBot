@@ -102,6 +102,12 @@ const basket = [
 
 sum = 0; 
 
+const backButton = document.getElementById("backBtn")
+
+backButton.addEventListener("click", ()=>{
+  window.location.href = "index.html";
+})
+
 for (let card of listCard) {
   const mainBasket = document.querySelector(".mainBasket");
 
