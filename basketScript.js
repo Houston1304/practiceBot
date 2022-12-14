@@ -161,6 +161,6 @@ for (let card of listCard) {
   buttonMinus.textContent = "-";
 
   
-  div.append(pName, pPrice, buttonPlus, pAmount, buttonMinus);
+  div.append(pName, pPrice, buttonMinus, pAmount, buttonPlus);
   mainBasket.append(div);
 }
