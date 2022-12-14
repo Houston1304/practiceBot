@@ -6,8 +6,8 @@
   margin: 0 auto;
   border: 2px solid black;
   justify-content: space-around;
-  height: 800px;
-  width: 30%;
+  height: 44vw;
+  width: 25vw;
   box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
   border-radius: 10px;
 }
