@@ -7,15 +7,15 @@
   border: 2px solid black;
   justify-content: space-around;
   height: 800px;
-  width: 500px;
+  max-width: 25%;
   box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
   border-radius: 10px;
 }
 
 .product {
   display: flex;
-  width: 450px;
-  height: 100px;
+  width: 95%;
+  height: 13%;
   box-shadow: 5px 5px 5px 5px rgb(219, 219, 219);
   border-radius: 10px;
   margin: 10px 0 ;
@@ -31,11 +31,12 @@
 }
 
 .totalPrice {
+  z-index: 100;
   position: absolute;
-  left: 41%;
-  bottom: 0%;
+  display: flex ;
+  margin-top: 41%;
   height: 20px;
-  width: 300px;
+  width: 20%;
   background-color: orange;
   padding: 10px;
   border-radius: 10px;
@@ -51,7 +52,7 @@
 
 #backBtn{
   height: 30px;
-  width: 70px;
+  width: 12%;
   background-color: orange;
   border-radius: 10px;
   
@@ -73,5 +74,7 @@
 #productPrice {
   position: relative;
   text-align: right;
-  left: 250px
+  top: 15%;
+  left: 55%;
 }
+
