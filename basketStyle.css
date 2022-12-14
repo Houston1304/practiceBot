@@ -25,6 +25,7 @@
 }
 
 .product button {
+  text-allign: center;
   width: 10%;
   background-color: orange;
   border-radius: 10px;
