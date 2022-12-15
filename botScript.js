@@ -1,4 +1,4 @@
-import { listCard, basket } from "./array";
+import { listCard, basket } from "./array.js";
 
 const mainBox = document.querySelector(".mainBox");
 let count = 1;
