@@ -19,6 +19,9 @@ backButton.addEventListener("click", () => {
 
 for (let card of hotOffer) {
   if (card.id === q) {
+    const order = document.querySelector(".order");
+    order.remove();
+
     const box = document.createElement("div");
     box.className = "box";
 
