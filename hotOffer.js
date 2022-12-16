@@ -1,4 +1,4 @@
-import { hotOffer } from "./hotOfferArray";
+import { hotOffer } from "./hotOfferArray.js";
 
 function ucFirst(str) {
   if (!str) return str;
