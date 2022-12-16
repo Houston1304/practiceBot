@@ -1,4 +1,4 @@
-import { listCard, basket } from "./array.js";
+import { listCard } from "./array.js";
 
 const mainBox = document.querySelector(".mainBox");
 let count = 1;
@@ -19,63 +19,19 @@ for (let card of listCard) {
   }
 
   const div = document.createElement("div");
-  const pName = document.createElement("p");
-  const pPrice = document.createElement("p");
-  const button = document.createElement("button");
-
   div.className = "card";
+
+  const pName = document.createElement("p");
+  pName.className = "headline";
   pName.textContent = card.name;
-  pPrice.textContent = "Стоимость ежемесячного платежа от " + card.price + "₽";
-  button.textContent = "Добавить";
+
+  const pPrice = document.createElement("p");
+  pPrice.textContent = "от " + card.price + "₽ в месяц";
+
+  const button = document.createElement("button");
+  button.textContent = "Что внутри?";
   button.addEventListener("click", () => {
-    button.remove();
-    const counter = document.createElement("div");
-    const buttonPlus = document.createElement("button");
-    const pCount = document.createElement("p");
-    const buttonMinus = document.createElement("button");
-
-    const buttonCheckout = document.createElement("button");
-    buttonCheckout.className = "checkout";
-    buttonCheckout.textContent = "Оформить заказ";
-
-    buttonPlus.addEventListener("click", () => {
-      basket.map((elem) => {
-        if (elem.name === card.name) {
-          elem.num += 1;
-          pCount.textContent = elem.num;
-        }
-      });
-    });
-    buttonMinus.addEventListener("click", () => {
-      basket.map((elem) => {
-        if (elem.name === card.name) {
-          elem.num -= 1;
-          if (elem.num !== 0) {
-            pCount.textContent = elem.num;
-          } else {
-            counter.remove();
-            div.append(button);
-            if (elem.num > 0) {
-              elem.num -= 1;
-              pCount.textContent = elem.num;
-            }
-          }
-        }
-      });
-    });
-
-    buttonPlus.textContent = "+";
-    buttonMinus.textContent = "-";
-    basket.map((elem) => {
-      if (elem.name === card.name) {
-        elem.num += 1;
-        pCount.textContent = elem.num;
-      }
-    });
-    counter.className = "counter";
-    counter.append(buttonMinus, pCount, buttonPlus);
-    div.append(counter);
-    mainBox.append(buttonCheckout);
+    window.location.href = "description.html" + "?q=" + card.id;
   });
 
   div.append(imageBox, pName, pPrice, button);
