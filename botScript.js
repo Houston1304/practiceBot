@@ -1,4 +1,5 @@
 import { listCard } from "./array.js";
+import { hotOffer } from "./hotOfferArray.js";
 
 const mainBox = document.querySelector(".mainBox");
 let count = 1;
@@ -35,5 +36,27 @@ for (let card of listCard) {
   });
 
   div.append(imageBox, pName, pPrice, button);
+  mainBox.append(div);
+}
+
+for (let card of hotOffer) {
+  const div = document.createElement("div");
+  div.className = "card";
+
+  const pName = document.createElement("p");
+  pName.className = "headline";
+  pName.textContent = card.name;
+
+  const imageBox = document.createElement("img");
+  imageBox.src =
+    "https://darth-shop.ru/modules/TwoAsOne/Content/Images/fire.png";
+
+  const button = document.createElement("button");
+  button.textContent = "Подробнее";
+  button.addEventListener("click", () => {
+    window.location.href = "description.html" + "?q=" + card.id;
+  });
+
+  div.append(imageBox, pName, button);
   mainBox.append(div);
 }
