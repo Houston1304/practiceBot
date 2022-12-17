@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Carlito';
+  src: url('./fonts/Carlito.woff') format('woff'), url('./fonts/Carlito.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
 @media (min-width: 1400px) {
   .mainBox {
     flex: 0 0 75%;
@@ -47,24 +54,27 @@
 }
 
 .mainBox {
-  background-color: white;
+  background-color: rgba(0, 153, 204, 0.12156862745098039);
   position: relative;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   margin: 0 auto;
-  border: 2px solid grey;
+  /* border: 2px solid grey; */
   border-radius: 10px;
   justify-content: space-around;
-  font-family: sans-serif;
+  font-family: "Carlito", sans-serif;
   font-size: 16px;
 }
 
 .box {
-  border: 2px solid grey;
+  /* border: 2px solid grey; */
+  background-color: white;
   margin: 10px auto;
   padding: 5px;
+  border-radius: 10px;
 }
+
 .box-button {
   display: flex;
   flex-direction: row;
@@ -74,19 +84,24 @@
 
 .back {
   padding: 10px;
-  border: 2px solid grey;
+  padding-left: 20px;
+  padding-right: 20px;
+  /* border: 2px solid grey; */
+  border: none;
   background-color: white;
   border-radius: 5px;
-  font-family: sans-serif;
+  font-family: "Carlito", sans-serif;
   font-size: 16px;
 }
 
 .order {
   padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   border: none;
   background-color: rgb(255, 230, 0);
   border-radius: 5px;
-  font-family: sans-serif;
+  font-family: "Carlito", sans-serif;
   font-size: 16px;
 }
 
@@ -117,11 +132,12 @@ li {
 }
 
 aside {
-  background: rgba(0, 153, 204, 0.12156862745098039);
+  /* background: rgba(0, 153, 204, 0.12156862745098039); */
   color: #55595c;
   margin: 0 10px;
   padding: 10px;
-  font-family: "Carlitoitalic", Sans-serif;
+  border-radius: 10px;
+  font-family: "Carlito", sans-serif;
   font-style: italic;
   box-shadow: inset 15px 0 5px -5px rgba(0, 153, 204, 0.47843137254901963);
 }

@@ -16,7 +16,6 @@ backButton.textContent = "Вернуться";
 backButton.addEventListener("click", () => {
   window.location.href = "index.html";
 });
-
 for (let card of hotOffer) {
   if (card.id === q) {
     const order = document.querySelector(".order");

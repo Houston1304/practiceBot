@@ -27,7 +27,10 @@ for (let card of listCard) {
   pName.textContent = card.name;
 
   const pPrice = document.createElement("p");
-  pPrice.textContent = "от " + card.price + "₽ в месяц";
+  if (card.price !== 0) {
+    pPrice.textContent = "от " + card.price + "₽ в месяц";
+  }
+
 
   const button = document.createElement("button");
   button.textContent = "Что внутри?";
