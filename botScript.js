@@ -31,7 +31,6 @@ for (let card of listCard) {
     pPrice.textContent = "от " + card.price + "₽ в месяц";
   }
 
-
   const button = document.createElement("button");
   button.textContent = "Что внутри?";
   button.addEventListener("click", () => {
