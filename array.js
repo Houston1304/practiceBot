@@ -15,8 +15,6 @@ export const listCard = [
     connection: "individ",
     integration: "individ",
     addition: [],
-    actual: true,
-    hot: false,
   },
   {
     id: 2,
@@ -36,8 +34,6 @@ export const listCard = [
       "Управление роботом через ЛК или он внедряется в CRM.",
       "Если клиентов у БАНКА много, можно подключить коробку с оповещением до 10 тысяч клиентов в день за 9500 руб./мес.",
     ],
-    actual: false,
-    hot: false,
   },
   {
     id: 3,
@@ -56,8 +52,6 @@ export const listCard = [
     connection: "freeStorage",
     integration: "absence",
     addition: ["Можно включить автопредупреждение об окончании базы номеров"],
-    actual: false,
-    hot: true,
   },
   {
     id: 4,
@@ -78,8 +72,6 @@ export const listCard = [
     addition: [
       "Если у вас СЕТЬ САЛОНОВ КРАСОТЫ – напишите Боту, вышлем спец. условия)",
     ],
-    actual: false,
-    hot: false,
   },
   {
     id: 5,
@@ -95,8 +87,6 @@ export const listCard = [
     connection: "free",
     integration: "individ",
     addition: [],
-    actual: false,
-    hot: false,
   },
   {
     id: 6,
@@ -116,8 +106,6 @@ export const listCard = [
     addition: [
       "Если у вас СЕТЬ ФИТНЕС-ЦЕНТРОВ – напишите Боту, вышлем спец. условия)",
     ],
-    actual: false,
-    hot: false,
   },
   {
     id: 7,
@@ -134,8 +122,6 @@ export const listCard = [
     connection: "individ",
     integration: "individ",
     addition: ["Управление роботом через ЛК или он внедряется в CRM"],
-    actual: true,
-    hot: false,
   },
   {
     id: 8,
@@ -155,8 +141,6 @@ export const listCard = [
     addition: [
       "Бот N. может действовать без контроля Человека, если будет настроена интеграция с CRM. Робот запишет разговор, и при необходимости соединит с оператором.",
     ],
-    actual: false,
-    hot: false,
   },
   {
     id: 9,
@@ -171,8 +155,6 @@ export const listCard = [
     connection: "individ",
     integration: "individ",
     addition: [],
-    actual: false,
-    hot: false,
   },
   {
     id: 10,
@@ -190,8 +172,6 @@ export const listCard = [
     connection: "free",
     integration: "absence",
     addition: [],
-    actual: true,
-    hot: false,
   },
   {
     id: 11,
@@ -212,8 +192,6 @@ export const listCard = [
     addition: [
       "ВАЖНО! Интеграция с CRM позволит роботу получать данные для оповещений в режиме онлайн без контроля Человеком, что во многом упрощает работу с клиентами и автоматизирует рассылку ссылок.",
     ],
-    actual: false,
-    hot: false,
   },
   // {
   //     id:12,
@@ -225,8 +203,6 @@ export const listCard = [
   //     connection: "absence/free/individ",
   //     integration: "absence/free/individ",
   //     addition: [],
-  //     actual: false,
-  //     hot: false,
   // },
   {
     id: 13,
@@ -245,7 +221,5 @@ export const listCard = [
     connection: "",
     integration: "",
     addition: [],
-    actual: false,
-    hot: false,
   },
 ];
