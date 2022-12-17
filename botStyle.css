@@ -1,16 +1,17 @@
 @font-face {
-  font-family: "Carlito";
-  src: url("./fonts/Carlito.woff") format("woff"),
-    url("./fonts/Carlito.woff2") format("woff2");
+  font-family: 'Carlito';
+  src: url('./fonts/Carlito.woff') format('woff'), url('./fonts/Carlito.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
+
 @media (min-width: 1400px) {
   .mainBox {
     flex: 0 0 75%;
     max-width: 65%;
     height: auto;
   }
+
   .card {
     width: 23%;
   }
@@ -54,7 +55,6 @@
 
 .mainBox {
   background-color: rgba(0, 153, 204, 0.12156862745098039);
-
   position: relative;
   display: flex;
   flex-wrap: wrap;
