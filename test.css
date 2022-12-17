@@ -146,6 +146,7 @@ body {
     padding: 10px;
     font-size: 16px;
     padding: 10px;
+    font-family: "Carlito", sans-serif;
 }
 
 img {
@@ -179,6 +180,7 @@ img {
     background-color: white;
     border-radius: 5px;
     font-size: 16px;
+    font-family: "Carlito", sans-serif;
 }
 
 .order {
@@ -189,6 +191,7 @@ img {
     background-color: rgb(255, 230, 0);
     border-radius: 5px;
     font-size: 16px;
+    font-family: "Carlito", sans-serif;
 }
 
 .headline {
