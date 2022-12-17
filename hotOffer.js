@@ -16,9 +16,11 @@ backButton.textContent = "Вернуться";
 backButton.addEventListener("click", () => {
   window.location.href = "index.html";
 });
-mainBox.append(backButton);
 for (let card of hotOffer) {
   if (card.id === q) {
+    const order = document.querySelector(".order");
+    order.remove();
+
     const box = document.createElement("div");
     box.className = "box";
 
