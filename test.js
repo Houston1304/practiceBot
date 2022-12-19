@@ -234,6 +234,7 @@ function form(card) {
   const phoneNumberForm = document.createElement("div");
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
+  phoneNumber.maxLength = "11";
   const phoneNumber = document.createElement("input");
   phoneNumber.type = "number";
   phoneNumberForm.append(phoneNumberDescription, phoneNumber);
