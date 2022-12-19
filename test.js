@@ -1,5 +1,4 @@
 import { listCard, hotOffer, checkList, telCheck } from "./array.js";
-import { listCard, hotOffer, checkList, telCheck } from "./array.js";
 
 function ucFirst(str) {
   if (!str) return str;
