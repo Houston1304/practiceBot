@@ -5,10 +5,10 @@ function ucFirst(str) {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-function validatePhone(phone){
+function validatePhone(phone) {
   let regex = /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
   return regex.test(phone);
- }
+}
 
 function description(card) {
   const mainBox = document.querySelector(".mainBox");
@@ -240,7 +240,7 @@ function form(card) {
   checkout.className = "checkout";
   checkout.textContent = "Оформить";
   boxButton.append(backButton, checkout);
-  
+
   const form = document.createElement("form");
 
   const companyForm = document.createElement("div");
@@ -257,9 +257,52 @@ function form(card) {
   phoneNumberDescription.textContent = "Номер телефона";
   const phoneNumber = document.createElement("input");
   phoneNumber.type = "text";
-  phoneNumber.maxLength = 11;
+  phoneNumber.maxLength = 17;
   phoneNumber.className = "form-input";
   phoneNumberForm.append(phoneNumberDescription, phoneNumber);
+
+  phoneNumber.value = "+";
+
+  let old = 0;
+  phoneNumber.onkeydown = function () {
+    let curLen = phoneNumber.value.length;
+
+    if (curLen < old) {
+      old--;
+      return;
+    }
+
+    if (curLen == 2)
+      phoneNumber.value = phoneNumber.value + "(";
+    if (curLen == 6)
+      phoneNumber.value = phoneNumber.value + ")-";
+    if (curLen == 7)
+      phoneNumber.value = phoneNumber.value + "-";
+    if (curLen == 11)
+      phoneNumber.value = phoneNumber.value + "-";
+    if (curLen == 14)
+      phoneNumber.value = phoneNumber.value + "-";
+
+    old++;
+  }
+
+  phoneNumber.addEventListener('keydown', function (event) {
+    // Разрешаем: backspace, delete, tab и escape
+    if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 ||
+      // Разрешаем: Ctrl+A
+      (event.keyCode == 65 && event.ctrlKey === true) ||
+      // Разрешаем: home, end, влево, вправо
+      (event.keyCode >= 35 && event.keyCode <= 39)) {
+
+      // Ничего не делаем
+      return;
+    } else {
+      // Запрещаем все, кроме цифр на основной клавиатуре, а так же Num-клавиатуре
+      if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+        event.preventDefault();
+      }
+    }
+  });
 
   const nameForm = document.createElement("div");
   nameForm.className = "form-div";
@@ -285,14 +328,14 @@ function form(card) {
   robotTypeDescription.textContent = "Какой тип робота вам нужен?";
   const robotType = document.createElement("select");
   robotType.className = "form-input";
-  for (let checkbox of checkList){
+  for (let checkbox of checkList) {
     const optionCheck = document.createElement("option");
     optionCheck.textContent = checkbox;
     robotType.append(optionCheck);
   }
   robotTypeForm.append(robotTypeDescription, robotType);
 
-  
+
 
   const numberOfPhonesForm = document.createElement("div");
   numberOfPhonesForm.className = "form-div";
@@ -309,13 +352,13 @@ function form(card) {
   telephonyDescription.textContent = "Своя телефония или нет?";
   const telephony = document.createElement("select");
   telephony.className = "form-input";
-  for (let tel of telCheck){
+  for (let tel of telCheck) {
     const telLabel = document.createElement("option");
     telLabel.textContent = tel;
     telephony.append(telLabel);
   }
   telephonyForm.append(telephonyDescription, telephony);
-  
+
   form.append(boxButton, companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephonyForm);
   mainBox.append(form);
   document.body.append(mainBox);
