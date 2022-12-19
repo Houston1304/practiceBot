@@ -255,10 +255,13 @@ function form(card) {
   phoneNumberForm.className = "form-div";
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
+  
   const phoneNumber = document.createElement("input");
+
   phoneNumber.type = "text";
   phoneNumber.maxLength = 17;
   phoneNumber.className = "form-input";
+
   phoneNumberForm.append(phoneNumberDescription, phoneNumber);
 
   phoneNumber.value = "+";
