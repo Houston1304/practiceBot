@@ -271,10 +271,19 @@ function form(card) {
   numberOfPhones.type = "number";
   numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
 
-
-  const telephony = document.createElement("input");
-  telephony.type = "checkbox";
-  form.append(companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephony);
+  const telephonyForm = document.createElement("div");
+  const telephonyDescription = document.createElement("p");
+  telephonyDescription.textContent = "Своя телефония или нет?";
+  telephonyForm.append(telephonyDescription);
+  for (let tel of telCheck){
+    const telephony = document.createElement("input");
+    telephony.type = "checkbox";
+    const telCheck = document.createElement("label");
+    telCheck.textContent = tel;
+    telephonyForm.append(telephony, telCheck);
+  }
+  
+  form.append(companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephonyForm);
   mainBox.append(form);
   document.body.append(mainBox);
 
