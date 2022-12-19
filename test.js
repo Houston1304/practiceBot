@@ -1,8 +1,13 @@
-import { listCard, hotOffer } from "./array.js";
+import { listCard, hotOffer, checkList, telCheck } from "./array.js";
 
 function ucFirst(str) {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);
+}
+
+function validatePhone(phone) {
+  let regex = /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+  return regex.test(phone);
 }
 
 function description(card) {
@@ -128,8 +133,8 @@ function hotOff(card) {
 }
 
 function main() {
-  if (document.querySelector(".main-description")) {
-    const mainDescription = document.querySelector(".main-description");
+  if (document.querySelector(".mainBox")) {
+    const mainDescription = document.querySelector(".mainBox");
     mainDescription.remove();
   }
 
@@ -218,63 +223,143 @@ function main() {
 }
 
 function form(card) {
-  const mainDescription = document.querySelector(".main-description");
+  const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
-  mainBox.className = "mainBox";
-  
+  mainBox.className = "mainBox main-description";
+
+  const boxButton = document.createElement("div");
+  boxButton.className = "box-button";
+  const backButton = document.createElement("button");
+  backButton.className = "back";
+  backButton.textContent = "Вернуться";
+  backButton.addEventListener("click", () => {
+    description(card);
+  });
+  const checkout = document.createElement("div");
+  checkout.className = "checkout";
+  checkout.textContent = "Оформить";
+  boxButton.append(backButton, checkout);
+
   const form = document.createElement("form");
 
   const companyForm = document.createElement("div");
+  companyForm.className = "form-div";
   const companyDescription = document.createElement("p");
   companyDescription.textContent = "Название компании";
   const company = document.createElement("input");
+  company.className = "form-input";
   companyForm.append(companyDescription, company);
 
   const phoneNumberForm = document.createElement("div");
+  phoneNumberForm.className = "form-div";
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
   const phoneNumber = document.createElement("input");
-  phoneNumber.type = "number";
+  phoneNumber.type = "text";
+  phoneNumber.maxLength = 17;
+  phoneNumber.className = "form-input";
   phoneNumberForm.append(phoneNumberDescription, phoneNumber);
 
+  phoneNumber.value = "+";
+
+  let old = 0;
+  phoneNumber.onkeydown = function () {
+    let curLen = phoneNumber.value.length;
+
+    if (curLen < old) {
+      old--;
+      return;
+    }
+
+    if (curLen == 2)
+      phoneNumber.value = phoneNumber.value + "(";
+    if (curLen == 6)
+      phoneNumber.value = phoneNumber.value + ")-";
+    if (curLen == 7)
+      phoneNumber.value = phoneNumber.value + "-";
+    if (curLen == 11)
+      phoneNumber.value = phoneNumber.value + "-";
+    if (curLen == 14)
+      phoneNumber.value = phoneNumber.value + "-";
+
+    old++;
+  }
+
+  phoneNumber.addEventListener('keydown', function (event) {
+    // Разрешаем: backspace, delete, tab и escape
+    if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 ||
+      // Разрешаем: Ctrl+A
+      (event.keyCode == 65 && event.ctrlKey === true) ||
+      // Разрешаем: home, end, влево, вправо
+      (event.keyCode >= 35 && event.keyCode <= 39)) {
+
+      // Ничего не делаем
+      return;
+    } else {
+      // Запрещаем все, кроме цифр на основной клавиатуре, а так же Num-клавиатуре
+      if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+        event.preventDefault();
+      }
+    }
+  });
+
   const nameForm = document.createElement("div");
+  nameForm.className = "form-div";
   const nameDescription = document.createElement("p");
   nameDescription.textContent = "Ваше Имя";
   const name = document.createElement("input");
   name.type = "text";
+  name.className = "form-input";
   nameForm.append(nameDescription, name);
 
   const emailForm = document.createElement("div");
+  emailForm.className = "form-div";
   const emailDescription = document.createElement("p");
   emailDescription.textContent = "Ваш Е-mail";
   const email = document.createElement("input");
   email.type = "email";
+  email.className = "form-input";
   emailForm.append(emailDescription, email);
 
   const robotTypeForm = document.createElement("div");
+  robotTypeForm.className = "form-div";
   const robotTypeDescription = document.createElement("p");
   robotTypeDescription.textContent = "Какой тип робота вам нужен?";
-  robotTypeForm.append(robotTypeDescription);
-  for (let checkbox of checkList){
-    const robotType = document.createElement("input");
-    robotType.type = "checkbox";
-    robotType.textContent = checkbox;
-    robotTypeForm.append(robotType);
+  const robotType = document.createElement("select");
+  robotType.className = "form-input";
+  for (let checkbox of checkList) {
+    const optionCheck = document.createElement("option");
+    optionCheck.textContent = checkbox;
+    robotType.append(optionCheck);
   }
-  
+  robotTypeForm.append(robotTypeDescription, robotType);
+
+
 
   const numberOfPhonesForm = document.createElement("div");
+  numberOfPhonesForm.className = "form-div";
   const numberOfPhonesDescription = document.createElement("p");
   numberOfPhonesDescription.textContent = "Напишите планируемое количество  номеров для загрузки в день";
   const numberOfPhones = document.createElement("input");
   numberOfPhones.type = "number";
+  numberOfPhones.className = "form-input";
   numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
 
+  const telephonyForm = document.createElement("div");
+  telephonyForm.className = "form-div";
+  const telephonyDescription = document.createElement("p");
+  telephonyDescription.textContent = "Своя телефония или нет?";
+  const telephony = document.createElement("select");
+  telephony.className = "form-input";
+  for (let tel of telCheck) {
+    const telLabel = document.createElement("option");
+    telLabel.textContent = tel;
+    telephony.append(telLabel);
+  }
+  telephonyForm.append(telephonyDescription, telephony);
 
-  const telephony = document.createElement("input");
-  telephony.type = "checkbox";
-  form.append(companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephony);
+  form.append(boxButton, companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephonyForm);
   mainBox.append(form);
   document.body.append(mainBox);
 
