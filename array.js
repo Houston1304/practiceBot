@@ -246,8 +246,6 @@ export const listCard = [
     connection: "",
     integration: "",
     addition: [],
-    actual: false,
-    hot: false,
   },
 ];
 
@@ -283,3 +281,11 @@ export const hotOffer = [
     ],
   },
 ];
+
+export const checkList = [
+  "Валидация/Фильтрация", "Предиктивный набор", "HLR запросы", "Передача голоса", `Диалог "робот-Человек"`, "Робот на входящую связь"
+]
+
+export const telCheck = [
+  "своя телефония", "телефония + робот"
+]
