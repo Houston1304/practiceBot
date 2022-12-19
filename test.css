@@ -16,6 +16,10 @@
         width: 23%;
     }
 
+    .form-div {
+        width: 50%;
+    }
+
     .box {
         width: 95%;
     }
@@ -35,6 +39,10 @@
 
     .card {
         width: 30%;
+    }
+
+    .form-div {
+        width: 90%;
     }
 
     .box {
@@ -58,9 +66,14 @@
         width: 30%;
     }
 
+    .form-div {
+        width: 90%;
+    }
+
     .box {
         width: 90%;
     }
+
 
     .nook {
         width: 50%;
@@ -77,6 +90,10 @@
 
     .card {
         width: 45%;
+    }
+
+    .form-div {
+        width: 90%;
     }
 
     .box {
@@ -106,6 +123,13 @@ body {
 
 .main-description {
     flex-direction: column;
+}
+
+.form-div {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content:space-between;
 }
 
 .headline {
@@ -181,7 +205,7 @@ img {
     font-size: 16px;
 }
 
-.order {
+.order, .checkout {
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -255,4 +279,16 @@ aside {
     margin-top: 10px;
     margin-left: -10px;
     border-radius: 5px;
+}
+
+.form-input {
+    margin: auto 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 35%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
