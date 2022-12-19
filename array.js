@@ -246,8 +246,6 @@ export const listCard = [
     connection: "",
     integration: "",
     addition: [],
-    actual: false,
-    hot: false,
   },
 ];
 
