@@ -23,6 +23,9 @@ function description(card) {
   const order = document.createElement("button");
   order.className = "order";
   order.textContent = "Заказать";
+  order.addEventListener("click", () => {
+    form(card);
+  });
   boxButton.append(backButton, order);
   mainDescription.append(boxButton);
 
@@ -212,5 +215,68 @@ function main() {
     div.append(imageBox, pName, pPrice, button);
     mainBox.append(div);
   }
+}
+
+function form(card) {
+  const mainDescription = document.querySelector(".main-description");
+  mainDescription.remove();
+  const mainBox = document.createElement("div");
+  mainBox.className = "mainBox";
+  
+  const form = document.createElement("form");
+
+  const companyForm = document.createElement("div");
+  const companyDescription = document.createElement("p");
+  companyDescription.textContent = "Название компании";
+  const company = document.createElement("input");
+  companyForm.append(companyDescription, company);
+
+  const phoneNumberForm = document.createElement("div");
+  const phoneNumberDescription = document.createElement("p");
+  phoneNumberDescription.textContent = "Номер телефона";
+  const phoneNumber = document.createElement("input");
+  phoneNumber.type = "number";
+  phoneNumberForm.append(phoneNumberDescription, phoneNumber);
+
+  const nameForm = document.createElement("div");
+  const nameDescription = document.createElement("p");
+  nameDescription.textContent = "Ваше Имя";
+  const name = document.createElement("input");
+  name.type = "text";
+  nameForm.append(nameDescription, name);
+
+  const emailForm = document.createElement("div");
+  const emailDescription = document.createElement("p");
+  emailDescription.textContent = "Ваш Е-mail";
+  const email = document.createElement("input");
+  email.type = "email";
+  emailForm.append(emailDescription, email);
+
+  const robotTypeForm = document.createElement("div");
+  const robotTypeDescription = document.createElement("p");
+  robotTypeDescription.textContent = "Какой тип робота вам нужен?";
+  robotTypeForm.append(robotTypeDescription);
+  for (let checkbox of checkList){
+    const robotType = document.createElement("input");
+    robotType.type = "checkbox";
+    robotType.textContent = checkbox;
+    robotTypeForm.append(robotType);
+  }
+  
+
+  const numberOfPhonesForm = document.createElement("div");
+  const numberOfPhonesDescription = document.createElement("p");
+  numberOfPhonesDescription.textContent = "Напишите планируемое количество  номеров для загрузки в день";
+  const numberOfPhones = document.createElement("input");
+  numberOfPhones.type = "number";
+  numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
+
+
+  const telephony = document.createElement("input");
+  telephony.type = "checkbox";
+  form.append(companyForm, phoneNumberForm, nameForm, emailForm, robotTypeForm, numberOfPhonesForm, telephony);
+  mainBox.append(form);
+  document.body.append(mainBox);
+
 }
 main();
