@@ -381,7 +381,6 @@ function form(card, num) {
     telephonyForm
   );
   if (num == 1) {
-    let checkValue = 0;
     const robotTypeForm = document.createElement("div");
     robotTypeForm.className = "form-div";
     const robotTypeDescription = document.createElement("p");
@@ -392,8 +391,6 @@ function form(card, num) {
     for (let checkbox of checkList) {
       const optionCheck = document.createElement("option");
       optionCheck.textContent = checkbox;
-      checkValue += 1;
-      optionCheck.value = 1;
       robotType.append(optionCheck);
     }
     robotTypeForm.append(robotTypeDescription, robotType);
