@@ -38,8 +38,9 @@ function description(card) {
   order.className = "order";
   order.textContent = "Заказать";
   order.addEventListener("click", () => {
-    form(card);
+    form(card, 2);
   });
+
   boxButton.append(backButton, order);
   mainDescription.append(boxButton);
 
@@ -202,7 +203,18 @@ function main() {
       description(card);
     });
 
-    div.append(imageBox, pName, pPrice, button);
+    const notSuitable = document.createElement("p");
+    notSuitable.className = "pSuit";
+    notSuitable.textContent = "Робот в коробке не подходит?";
+
+    const selfRobot = document.createElement("button");
+    selfRobot.className = "selfRobo";
+    selfRobot.textContent = "Создай своего робота";
+    selfRobot.addEventListener("click", () => {
+      form(card, 1);
+    });
+
+    div.append(imageBox, pName, pPrice, button, notSuitable, selfRobot);
     mainBox.append(div);
   }
 
@@ -231,7 +243,7 @@ function main() {
   }
 }
 
-function form(card) {
+function form(card, num) {
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
@@ -242,9 +254,15 @@ function form(card) {
   const backButton = document.createElement("button");
   backButton.className = "back";
   backButton.textContent = "Вернуться";
-  backButton.addEventListener("click", () => {
-    description(card);
-  });
+  if (num == 1) {
+    backButton.addEventListener("click", () => {
+      main(card);
+    });
+  } else {
+    backButton.addEventListener("click", () => {
+      description(card);
+    });
+  }
   const checkout = document.createElement("div");
   checkout.className = "checkout";
   checkout.textContent = "Оформить";
@@ -341,29 +359,6 @@ function form(card) {
   email.className = "form-input";
   emailForm.append(emailDescription, email);
 
-  const robotTypeForm = document.createElement("div");
-  robotTypeForm.className = "form-div";
-  const robotTypeDescription = document.createElement("p");
-  robotTypeDescription.textContent = "Какой тип робота вам нужен?";
-  const robotType = document.createElement("select");
-  robotType.className = "form-input";
-  for (let checkbox of checkList) {
-    const optionCheck = document.createElement("option");
-    optionCheck.textContent = checkbox;
-    robotType.append(optionCheck);
-  }
-  robotTypeForm.append(robotTypeDescription, robotType);
-
-  const numberOfPhonesForm = document.createElement("div");
-  numberOfPhonesForm.className = "form-div";
-  const numberOfPhonesDescription = document.createElement("p");
-  numberOfPhonesDescription.textContent =
-    "Напишите планируемое количество  номеров для загрузки в день";
-  const numberOfPhones = document.createElement("input");
-  numberOfPhones.type = "number";
-  numberOfPhones.className = "form-input";
-  numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
-
   const telephonyForm = document.createElement("div");
   telephonyForm.className = "form-div";
   const telephonyDescription = document.createElement("p");
@@ -383,10 +378,58 @@ function form(card) {
     phoneNumberForm,
     nameForm,
     emailForm,
-    robotTypeForm,
-    numberOfPhonesForm,
     telephonyForm
   );
+  if (num == 1) {
+    let checkValue = 0;
+    const robotTypeForm = document.createElement("div");
+    robotTypeForm.className = "form-div";
+    const robotTypeDescription = document.createElement("p");
+    robotTypeDescription.textContent = "Какой тип робота вам нужен?";
+    const robotType = document.createElement("select");
+    robotType.className = "form-input";
+    robotType.id = "robotSelect";
+    for (let checkbox of checkList) {
+      const optionCheck = document.createElement("option");
+      optionCheck.textContent = checkbox;
+      checkValue += 1;
+      optionCheck.value = 1;
+      robotType.append(optionCheck);
+    }
+    robotTypeForm.append(robotTypeDescription, robotType);
+    form.append(robotTypeForm);
+  }
+  if (num == 2) {
+    const numberOfPhonesForm = document.createElement("div");
+    numberOfPhonesForm.className = "form-div";
+    const numberOfPhonesDescription = document.createElement("p");
+    numberOfPhonesDescription.textContent =
+      "Напишите планируемое количество  номеров для загрузки в день";
+    const numberOfPhones = document.createElement("input");
+    numberOfPhones.type = "number";
+    numberOfPhones.className = "form-input";
+
+    numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
+    form.append(numberOfPhonesForm);
+
+    const CRMForm = document.createElement("div");
+    CRMForm.className = "form-div";
+    const CRMDescription = document.createElement("p");
+    CRMDescription.textContent = "Напишите название CRM, если нужна интеграция";
+    const CRMName = document.createElement("input");
+    CRMName.className = "form-input";
+
+    CRMForm.append(CRMDescription, CRMName);
+    form.append(CRMForm);
+    checkout.addEventListener("click", () => {
+      if (!/\S/.test(numberOfPhones.value)) {
+        const numberOfErr = document.createElement("p");
+        numberOfErr.className = "error";
+        numberOfErr.textContent = "Введите количество номеров!";
+        numberOfPhonesForm.append(numberOfErr);
+      }
+    });
+  }
   mainBox.append(form);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
@@ -413,12 +456,6 @@ function form(card) {
       nameErr.className = "error";
       nameErr.textContent = "Введите ваше Имя!";
       nameForm.append(nameErr);
-    }
-    if (!/\S/.test(numberOfPhones.value)) {
-      const numberOfErr = document.createElement("p");
-      numberOfErr.className = "error";
-      numberOfErr.textContent = "Введите количество номеров!";
-      numberOfPhonesForm.append(numberOfErr);
     } else {
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
@@ -426,4 +463,5 @@ function form(card) {
     }
   });
 }
+
 main();
