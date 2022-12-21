@@ -424,7 +424,9 @@ function form(card) {
     checkout.addEventListener("click", () => {
       if (document.getElementById("numberOfErr")) {
         const numberOfErr = document.getElementById("numberOfErr");
+
         numberOfErr.remove();
+
       }
       if (!/\S/.test(numberOfPhones.value)) {
         const numberOfErr = document.createElement("p");
@@ -449,6 +451,7 @@ function form(card) {
   mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
+
     if (document.getElementById("companyErr")) {
       const companyErr = document.getElementById("companyErr");
       companyErr.remove();
@@ -467,12 +470,15 @@ function form(card) {
     if (document.getElementById("nameErr")) {
       const nameErr = document.getElementById("nameErr");
       nameErr.remove();
+
     }
 
     if (!/\S/.test(company.value)) {
       const companyErr = document.createElement("p");
       companyErr.className = "error";
-      companyErr.id = "companyErr";
+
+      companyErr.id = "companyErr"
+
       companyErr.textContent = "Введите название компании!";
       companyForm.append(companyErr);
     }
@@ -486,7 +492,7 @@ function form(card) {
     if (!validateEmail(email.value) || !/\S/.test(email.value)) {
       const emailErr = document.createElement("p");
       emailErr.className = "error";
-      emailErr.id = "emailErr";
+      emailErr.id = "emailErr"
       emailErr.textContent = "Введите корректный адрес!";
       emailForm.append(emailErr);
     }
@@ -497,6 +503,7 @@ function form(card) {
       nameErr.textContent = "Введите ваше Имя!";
       nameForm.append(nameErr);
     }
+
     if (
       card == 0 &&
       /\S/.test(company.value) &&
@@ -504,6 +511,7 @@ function form(card) {
       (validateEmail(email.value) || /\S/.test(email.value)) &&
       /\S/.test(name.value)
     ) {
+
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
@@ -541,4 +549,4 @@ function setCursorPosition(pos, elem) {
     range.moveStart("character", pos);
     range.select();
   }
-}
+};
