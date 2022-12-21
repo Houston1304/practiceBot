@@ -26,23 +26,23 @@ function description(card) {
   const mainDescription = document.createElement("div");
   mainDescription.className = "mainBox main-description";
 
-  const boxButton = document.createElement("div");
-  boxButton.className = "box-button";
+  const boxButtonBack = document.createElement("div");
+  boxButtonBack.className = "box-button";
   const backButton = document.createElement("button");
   backButton.className = "back";
   backButton.textContent = "Вернуться";
   backButton.addEventListener("click", () => {
     main();
   });
-  const order = document.createElement("button");
-  order.className = "order";
-  order.textContent = "Заказать";
-  order.addEventListener("click", () => {
-    form(card);
-  });
 
-  boxButton.append(backButton, order);
-  mainDescription.append(boxButton);
+  const roboImageBox = document.createElement("div");
+  roboImageBox.className = "roboImg";
+  const roboImage = document.createElement("img");
+  roboImage.src = "WQkg7C0g-2A.png";
+  roboImageBox.append(roboImage);
+
+  boxButtonBack.append(backButton);
+  mainDescription.append(boxButtonBack);
 
   const box = document.createElement("div");
   box.className = "box";
@@ -89,7 +89,18 @@ function description(card) {
     }
     box.append(blockquote, additionList);
   }
-  mainDescription.append(box);
+  box.append(roboImageBox);
+
+  const boxButtonOrder = document.createElement("div");
+  boxButtonOrder.className = "box-button right";
+  const order = document.createElement("button");
+  order.className = "order";
+  order.textContent = "Заказать";
+  order.addEventListener("click", () => {
+    form(card);
+  });
+  boxButtonOrder.append(order);
+  mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
 }
 
@@ -266,12 +277,17 @@ function form(card) {
       description(card);
     });
   }
-  const checkout = document.createElement("div");
-  checkout.className = "checkout";
+  boxButton.append(backButton);
+
+  const boxButtonCheckout = document.createElement("div");
+  boxButtonCheckout.className = "box-button right";
+  const checkout = document.createElement("button");
+  checkout.className = "order";
   checkout.textContent = "Оформить";
-  boxButton.append(backButton, checkout);
+  boxButtonCheckout.append(checkout);
 
   const form = document.createElement("form");
+  form.className = "form";
 
   const companyForm = document.createElement("div");
   companyForm.className = "form-div";
@@ -328,14 +344,7 @@ function form(card) {
   }
   telephonyForm.append(telephonyDescription, telephony);
 
-  form.append(
-    boxButton,
-    companyForm,
-    phoneNumberForm,
-    nameForm,
-    emailForm,
-    telephonyForm
-  );
+  form.append(companyForm, phoneNumberForm, nameForm, emailForm, telephonyForm);
   if (card === 0) {
     const robotTypeForm = document.createElement("div");
     robotTypeForm.className = "form-div";
@@ -352,6 +361,7 @@ function form(card) {
     robotTypeForm.append(robotTypeDescription, robotType);
     form.append(robotTypeForm);
   } else {
+  } else {
     const numberOfPhonesForm = document.createElement("div");
     numberOfPhonesForm.className = "form-div";
     const numberOfPhonesDescription = document.createElement("p");
@@ -360,6 +370,25 @@ function form(card) {
     const numberOfPhones = document.createElement("input");
     numberOfPhones.type = "number";
     numberOfPhones.className = "form-input";
+    numberOfPhones.addEventListener("keydown", function (event) {
+      if (
+        event.keyCode == 46 ||
+        event.keyCode == 8 ||
+        event.keyCode == 9 ||
+        event.keyCode == 27 ||
+        (event.keyCode == 65 && event.ctrlKey === true) ||
+        (event.keyCode >= 35 && event.keyCode <= 39)
+      ) {
+        return;
+      } else {
+        if (
+          (event.keyCode < 48 || event.keyCode > 57) &&
+          (event.keyCode < 96 || event.keyCode > 105)
+        ) {
+          event.preventDefault();
+        }
+      }
+    });
     numberOfPhones.addEventListener("keydown", function (event) {
       if (
         event.keyCode == 46 ||
@@ -395,7 +424,9 @@ function form(card) {
     checkout.addEventListener("click", () => {
       if (document.getElementById("numberOfErr")) {
         const numberOfErr = document.getElementById("numberOfErr");
-        numberOfErr.remove()
+
+        numberOfErr.remove();
+
       }
       if (!/\S/.test(numberOfPhones.value)) {
         const numberOfErr = document.createElement("p");
@@ -404,44 +435,57 @@ function form(card) {
         numberOfErr.textContent = "Введите количество номеров!";
         numberOfPhonesForm.append(numberOfErr);
       }
+      if (
+        /\S/.test(company.value) &&
+        validatePhone(phoneNumber.value) &&
+        (validateEmail(email.value) || /\S/.test(email.value)) &&
+        /\S/.test(name.value) &&
+        /\S/.test(numberOfPhones.value)
+      ) {
+        alert(
+          `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
+        );
+      }
     });
   }
-  mainBox.append(form);
+  mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
 
     if (document.getElementById("companyErr")) {
-      const companyErr = document.getElementById("companyErr")
-      companyErr.remove()
+      const companyErr = document.getElementById("companyErr");
+      companyErr.remove();
     }
 
-    if (document.getElementById("phoneNumberErr")) {
-      const phoneNumberErr = document.getElementById("phoneNumberErr")
-      phoneNumberErr.remove()
+    if (document.getElementById("phoneErr")) {
+      const phoneErr = document.getElementById("phoneErr");
+      phoneErr.remove();
     }
-
 
     if (document.getElementById("emailErr")) {
-      const emailErr = document.getElementById("emailErr")
-      emailErr.remove()
+      const emailErr = document.getElementById("emailErr");
+      emailErr.remove();
     }
 
     if (document.getElementById("nameErr")) {
-      const nameErr = document.getElementById("nameErr")
-      nameErr.remove()
+      const nameErr = document.getElementById("nameErr");
+      nameErr.remove();
+
     }
 
     if (!/\S/.test(company.value)) {
       const companyErr = document.createElement("p");
       companyErr.className = "error";
+
       companyErr.id = "companyErr"
+
       companyErr.textContent = "Введите название компании!";
       companyForm.append(companyErr);
     }
     if (!validatePhone(phoneNumber.value)) {
       const phoneErr = document.createElement("p");
       phoneErr.className = "error";
-      phoneErr.id = "phoneNumberErr"
+      phoneErr.id = "phoneErr";
       phoneErr.textContent = "Введите корректный номер!";
       phoneNumberForm.append(phoneErr);
     }
@@ -459,7 +503,15 @@ function form(card) {
       nameErr.textContent = "Введите ваше Имя!";
       nameForm.append(nameErr);
     }
-    if (/\S/.test(company.value) && /\S/.test(name.value) && (validateEmail(email.value) || /\S/.test(email.value)) && validatePhone(phoneNumber.value)) {
+
+    if (
+      card == 0 &&
+      /\S/.test(company.value) &&
+      validatePhone(phoneNumber.value) &&
+      (validateEmail(email.value) || /\S/.test(email.value)) &&
+      /\S/.test(name.value)
+    ) {
+
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
@@ -476,12 +528,16 @@ function mask(event) {
     val = this.value.replace(/\D/g, "");
   if (def.length >= val.length) val = def;
   this.value = matrix.replace(/./g, function (a) {
-    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+    return /[_\d]/.test(a) && i < val.length
+      ? val.charAt(i++)
+      : i >= val.length
+      ? ""
+      : a;
   });
   if (event.type == "blur") {
-    if (this.value.length == 2) this.value = ""
-  } else setCursorPosition(this.value.length, this)
-};
+    if (this.value.length == 2) this.value = "";
+  } else setCursorPosition(this.value.length, this);
+}
 
 function setCursorPosition(pos, elem) {
   elem.focus();
@@ -491,6 +547,6 @@ function setCursorPosition(pos, elem) {
     range.collapse(true);
     range.moveEnd("character", pos);
     range.moveStart("character", pos);
-    range.select()
+    range.select();
   }
 };
