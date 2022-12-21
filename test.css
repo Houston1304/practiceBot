@@ -138,6 +138,7 @@ body {
 
 .headline {
     font-weight: bold;
+    font-size: 18px;
 }
 
 .card {
@@ -217,11 +218,6 @@ img {
     background-color: rgb(255, 230, 0);
     border-radius: 5px;
     font-size: 16px;
-}
-
-.headline {
-    font-weight: bold;
-    font-size: 18px;
 }
 
 .p {
