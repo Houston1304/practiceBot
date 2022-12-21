@@ -26,23 +26,23 @@ function description(card) {
   const mainDescription = document.createElement("div");
   mainDescription.className = "mainBox main-description";
 
-  const boxButton = document.createElement("div");
-  boxButton.className = "box-button";
+  const boxButtonBack = document.createElement("div");
+  boxButtonBack.className = "box-button";
   const backButton = document.createElement("button");
   backButton.className = "back";
   backButton.textContent = "Вернуться";
   backButton.addEventListener("click", () => {
     main();
   });
-  const order = document.createElement("button");
-  order.className = "order";
-  order.textContent = "Заказать";
-  order.addEventListener("click", () => {
-    form(card, 2);
-  });
 
-  boxButton.append(backButton, order);
-  mainDescription.append(boxButton);
+  const roboImageBox = document.createElement("div");
+  roboImageBox.className = "roboImg";
+  const roboImage = document.createElement("img");
+  roboImage.src = "WQkg7C0g-2A.png";
+  roboImageBox.append(roboImage);
+
+  boxButtonBack.append(backButton);
+  mainDescription.append(boxButtonBack);
 
   const box = document.createElement("div");
   box.className = "box";
@@ -89,7 +89,18 @@ function description(card) {
     }
     box.append(blockquote, additionList);
   }
-  mainDescription.append(box);
+  box.append(roboImageBox);
+
+  const boxButtonOrder = document.createElement("div");
+  boxButtonOrder.className = "box-button right";
+  const order = document.createElement("button");
+  order.className = "order";
+  order.textContent = "Заказать";
+  order.addEventListener("click", () => {
+    form(card);
+  });
+  boxButtonOrder.append(order);
+  mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
 }
 
@@ -147,9 +158,32 @@ function main() {
     const mainDescription = document.querySelector(".mainBox");
     mainDescription.remove();
   }
-
   const mainBox = document.createElement("div");
   mainBox.className = "mainBox";
+
+  for (let card of hotOffer) {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    const pName = document.createElement("p");
+    pName.className = "headline";
+    pName.textContent = card.name;
+
+    const imageBox = document.createElement("img");
+    imageBox.src =
+      "https://darth-shop.ru/modules/TwoAsOne/Content/Images/fire.png";
+
+    const button = document.createElement("button");
+    button.className = "button";
+    button.textContent = "Подробнее";
+    button.addEventListener("click", () => {
+      hotOff(card);
+    });
+
+    div.append(imageBox, pName, button);
+    mainBox.append(div);
+    document.body.append(mainBox);
+  }
 
   let count = 1;
   for (let card of listCard) {
@@ -203,47 +237,27 @@ function main() {
       description(card);
     });
 
-    const notSuitable = document.createElement("p");
-    notSuitable.className = "pSuit";
-    notSuitable.textContent = "Робот в коробке не подходит?";
-
-    const selfRobot = document.createElement("button");
-    selfRobot.className = "selfRobo";
-    selfRobot.textContent = "Создай своего робота";
-    selfRobot.addEventListener("click", () => {
-      form(card, 1);
-    });
-
-    div.append(imageBox, pName, pPrice, button, notSuitable, selfRobot);
+    div.append(imageBox, pName, pPrice, button);
     mainBox.append(div);
   }
 
-  for (let card of hotOffer) {
-    const div = document.createElement("div");
-    div.className = "card";
+  const divSelf = document.createElement("div");
+  divSelf.className = "div-self";
+  const notSuitable = document.createElement("p");
+  notSuitable.className = "pSuit";
+  notSuitable.textContent = "Робот в коробке не подходит?";
 
-    const pName = document.createElement("p");
-    pName.className = "headline";
-    pName.textContent = card.name;
-
-    const imageBox = document.createElement("img");
-    imageBox.src =
-      "https://darth-shop.ru/modules/TwoAsOne/Content/Images/fire.png";
-
-    const button = document.createElement("button");
-    button.className = "button";
-    button.textContent = "Подробнее";
-    button.addEventListener("click", () => {
-      hotOff(card);
-    });
-
-    div.append(imageBox, pName, button);
-    mainBox.append(div);
-    document.body.append(mainBox);
-  }
+  const selfRobot = document.createElement("button");
+  selfRobot.className = "selfRobo";
+  selfRobot.textContent = "Создай своего робота";
+  selfRobot.addEventListener("click", () => {
+    form(0);
+  });
+  divSelf.append(notSuitable, selfRobot);
+  mainBox.append(divSelf);
 }
 
-function form(card, num) {
+function form(card) {
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
@@ -254,21 +268,26 @@ function form(card, num) {
   const backButton = document.createElement("button");
   backButton.className = "back";
   backButton.textContent = "Вернуться";
-  if (num == 1) {
+  if (card === 0) {
     backButton.addEventListener("click", () => {
-      main(card);
+      main();
     });
   } else {
     backButton.addEventListener("click", () => {
       description(card);
     });
   }
-  const checkout = document.createElement("div");
-  checkout.className = "checkout";
+  boxButton.append(backButton);
+
+  const boxButtonCheckout = document.createElement("div");
+  boxButtonCheckout.className = "box-button right";
+  const checkout = document.createElement("button");
+  checkout.className = "order";
   checkout.textContent = "Оформить";
-  boxButton.append(backButton, checkout);
+  boxButtonCheckout.append(checkout);
 
   const form = document.createElement("form");
+  form.className = "form";
 
   const companyForm = document.createElement("div");
   companyForm.className = "form-div";
@@ -283,59 +302,12 @@ function form(card, num) {
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
   const phoneNumber = document.createElement("input");
-  phoneNumber.type = "text";
-  phoneNumber.maxLength = 17;
   phoneNumber.className = "form-input";
+  phoneNumber.id = "tel";
+  phoneNumber.addEventListener("input", mask, false);
+  phoneNumber.addEventListener("focus", mask, false);
+  phoneNumber.addEventListener("blur", mask, false);
   phoneNumberForm.append(phoneNumberDescription, phoneNumber);
-
-  phoneNumber.value = "+";
-
-  let old = 0;
-  phoneNumber.onkeydown = function () {
-    let curLen = phoneNumber.value.length;
-
-    if (phoneNumber.value[0] != "+") {
-      phoneNumber.value = "+";
-    }
-
-    if (curLen < old) {
-      old--;
-      return;
-    }
-
-    if (curLen == 2) phoneNumber.value = phoneNumber.value + "(";
-    if (curLen == 6) phoneNumber.value = phoneNumber.value + ")-";
-    if (curLen == 7) phoneNumber.value = phoneNumber.value + "-";
-    if (curLen == 11) phoneNumber.value = phoneNumber.value + "-";
-    if (curLen == 14) phoneNumber.value = phoneNumber.value + "-";
-
-    old++;
-  };
-
-  phoneNumber.addEventListener("keydown", function (event) {
-    // Разрешаем: backspace, delete, tab и escape
-    if (
-      event.keyCode == 46 ||
-      event.keyCode == 8 ||
-      event.keyCode == 9 ||
-      event.keyCode == 27 ||
-      // Разрешаем: Ctrl+A
-      (event.keyCode == 65 && event.ctrlKey === true) ||
-      // Разрешаем: home, end, влево, вправо
-      (event.keyCode >= 35 && event.keyCode <= 39)
-    ) {
-      // Ничего не делаем
-      return;
-    } else {
-      // Запрещаем все, кроме цифр на основной клавиатуре, а так же Num-клавиатуре
-      if (
-        (event.keyCode < 48 || event.keyCode > 57) &&
-        (event.keyCode < 96 || event.keyCode > 105)
-      ) {
-        event.preventDefault();
-      }
-    }
-  });
 
   const nameForm = document.createElement("div");
   nameForm.className = "form-div";
@@ -372,15 +344,8 @@ function form(card, num) {
   }
   telephonyForm.append(telephonyDescription, telephony);
 
-  form.append(
-    boxButton,
-    companyForm,
-    phoneNumberForm,
-    nameForm,
-    emailForm,
-    telephonyForm
-  );
-  if (num == 1) {
+  form.append(companyForm, phoneNumberForm, nameForm, emailForm, telephonyForm);
+  if (card === 0) {
     const robotTypeForm = document.createElement("div");
     robotTypeForm.className = "form-div";
     const robotTypeDescription = document.createElement("p");
@@ -395,8 +360,7 @@ function form(card, num) {
     }
     robotTypeForm.append(robotTypeDescription, robotType);
     form.append(robotTypeForm);
-  }
-  if (num == 2) {
+  } else {
     const numberOfPhonesForm = document.createElement("div");
     numberOfPhonesForm.className = "form-div";
     const numberOfPhonesDescription = document.createElement("p");
@@ -405,6 +369,25 @@ function form(card, num) {
     const numberOfPhones = document.createElement("input");
     numberOfPhones.type = "number";
     numberOfPhones.className = "form-input";
+    numberOfPhones.addEventListener("keydown", function (event) {
+      if (
+        event.keyCode == 46 ||
+        event.keyCode == 8 ||
+        event.keyCode == 9 ||
+        event.keyCode == 27 ||
+        (event.keyCode == 65 && event.ctrlKey === true) ||
+        (event.keyCode >= 35 && event.keyCode <= 39)
+      ) {
+        return;
+      } else {
+        if (
+          (event.keyCode < 48 || event.keyCode > 57) &&
+          (event.keyCode < 96 || event.keyCode > 105)
+        ) {
+          event.preventDefault();
+        }
+      }
+    });
 
     numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
     form.append(numberOfPhonesForm);
@@ -419,41 +402,88 @@ function form(card, num) {
     CRMForm.append(CRMDescription, CRMName);
     form.append(CRMForm);
     checkout.addEventListener("click", () => {
+      if (document.getElementById("numberOfErr")) {
+        const numberOfErr = document.getElementById("numberOfErr");
+        numberOfErr.remove();
+      }
       if (!/\S/.test(numberOfPhones.value)) {
         const numberOfErr = document.createElement("p");
         numberOfErr.className = "error";
+        numberOfErr.id = "numberOfErr";
         numberOfErr.textContent = "Введите количество номеров!";
         numberOfPhonesForm.append(numberOfErr);
       }
+      if (
+        /\S/.test(company.value) &&
+        validatePhone(phoneNumber.value) &&
+        (validateEmail(email.value) || /\S/.test(email.value)) &&
+        /\S/.test(name.value) &&
+        /\S/.test(numberOfPhones.value)
+      ) {
+        alert(
+          `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
+        );
+      }
     });
   }
-  mainBox.append(form);
+  mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
+    if (document.getElementById("companyErr")) {
+      const companyErr = document.getElementById("companyErr");
+      companyErr.remove();
+    }
+
+    if (document.getElementById("phoneErr")) {
+      const phoneErr = document.getElementById("phoneErr");
+      phoneErr.remove();
+    }
+
+    if (document.getElementById("emailErr")) {
+      const emailErr = document.getElementById("emailErr");
+      emailErr.remove();
+    }
+
+    if (document.getElementById("nameErr")) {
+      const nameErr = document.getElementById("nameErr");
+      nameErr.remove();
+    }
+
     if (!/\S/.test(company.value)) {
       const companyErr = document.createElement("p");
       companyErr.className = "error";
+      companyErr.id = "companyErr";
       companyErr.textContent = "Введите название компании!";
       companyForm.append(companyErr);
     }
     if (!validatePhone(phoneNumber.value)) {
       const phoneErr = document.createElement("p");
       phoneErr.className = "error";
+      phoneErr.id = "phoneErr";
       phoneErr.textContent = "Введите корректный номер!";
       phoneNumberForm.append(phoneErr);
     }
     if (!validateEmail(email.value) || !/\S/.test(email.value)) {
       const emailErr = document.createElement("p");
       emailErr.className = "error";
+      emailErr.id = "emailErr";
       emailErr.textContent = "Введите корректный адрес!";
       emailForm.append(emailErr);
     }
     if (!/\S/.test(name.value)) {
       const nameErr = document.createElement("p");
       nameErr.className = "error";
+      nameErr.id = "nameErr";
       nameErr.textContent = "Введите ваше Имя!";
       nameForm.append(nameErr);
-    } else {
+    }
+    if (
+      card == 0 &&
+      /\S/.test(company.value) &&
+      validatePhone(phoneNumber.value) &&
+      (validateEmail(email.value) || /\S/.test(email.value)) &&
+      /\S/.test(name.value)
+    ) {
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
@@ -462,3 +492,33 @@ function form(card, num) {
 }
 
 main();
+
+function mask(event) {
+  let matrix = "+7 (___)-___-__-__",
+    i = 0,
+    def = matrix.replace(/\D/g, ""),
+    val = this.value.replace(/\D/g, "");
+  if (def.length >= val.length) val = def;
+  this.value = matrix.replace(/./g, function (a) {
+    return /[_\d]/.test(a) && i < val.length
+      ? val.charAt(i++)
+      : i >= val.length
+      ? ""
+      : a;
+  });
+  if (event.type == "blur") {
+    if (this.value.length == 2) this.value = "";
+  } else setCursorPosition(this.value.length, this);
+}
+
+function setCursorPosition(pos, elem) {
+  elem.focus();
+  if (elem.setSelectionRange) elem.setSelectionRange(pos, pos);
+  else if (elem.createTextRange) {
+    var range = elem.createTextRange();
+    range.collapse(true);
+    range.moveEnd("character", pos);
+    range.moveStart("character", pos);
+    range.select();
+  }
+}
