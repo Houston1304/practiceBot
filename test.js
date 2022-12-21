@@ -393,7 +393,7 @@ function form(card) {
     CRMForm.append(CRMDescription, CRMName);
     form.append(CRMForm);
     checkout.addEventListener("click", () => {
-      if (/\S/.test(numberOfPhones.value)) {
+      if (document.getElementById("numberOfErr")) {
         const numberOfErr = document.getElementById("numberOfErr");
         numberOfErr.remove()
       }
@@ -426,8 +426,8 @@ function form(card) {
       emailErr.remove()
     }
 
-    if (document.getElementById("companyErr")) {
-      const nameErr = document.getElementById("companyErr")
+    if (document.getElementById("nameErr")) {
+      const nameErr = document.getElementById("nameErr")
       nameErr.remove()
     }
 
