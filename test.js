@@ -361,6 +361,7 @@ function form(card) {
     robotTypeForm.append(robotTypeDescription, robotType);
     form.append(robotTypeForm);
   } else {
+  } else {
     const numberOfPhonesForm = document.createElement("div");
     numberOfPhonesForm.className = "form-div";
     const numberOfPhonesDescription = document.createElement("p");
@@ -369,6 +370,25 @@ function form(card) {
     const numberOfPhones = document.createElement("input");
     numberOfPhones.type = "number";
     numberOfPhones.className = "form-input";
+    numberOfPhones.addEventListener("keydown", function (event) {
+      if (
+        event.keyCode == 46 ||
+        event.keyCode == 8 ||
+        event.keyCode == 9 ||
+        event.keyCode == 27 ||
+        (event.keyCode == 65 && event.ctrlKey === true) ||
+        (event.keyCode >= 35 && event.keyCode <= 39)
+      ) {
+        return;
+      } else {
+        if (
+          (event.keyCode < 48 || event.keyCode > 57) &&
+          (event.keyCode < 96 || event.keyCode > 105)
+        ) {
+          event.preventDefault();
+        }
+      }
+    });
     numberOfPhones.addEventListener("keydown", function (event) {
       if (
         event.keyCode == 46 ||
