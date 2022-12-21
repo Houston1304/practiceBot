@@ -393,9 +393,14 @@ function form(card) {
     CRMForm.append(CRMDescription, CRMName);
     form.append(CRMForm);
     checkout.addEventListener("click", () => {
+      if (/\S/.test(numberOfPhones.value)) {
+        const numberOfErr = document.getElementById("numberOfErr");
+        numberOfErr.remove()
+      }
       if (!/\S/.test(numberOfPhones.value)) {
         const numberOfErr = document.createElement("p");
         numberOfErr.className = "error";
+        numberOfErr.id = "numberOfErr";
         numberOfErr.textContent = "Введите количество номеров!";
         numberOfPhonesForm.append(numberOfErr);
       }
@@ -404,30 +409,57 @@ function form(card) {
   mainBox.append(form);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
+
+    if (document.getElementById("companyErr")) {
+      const companyErr = document.getElementById("companyErr")
+      companyErr.remove()
+    }
+
+    if (document.getElementById("phoneNumberErr")) {
+      const phoneNumberErr = document.getElementById("phoneNumberErr")
+      phoneNumberErr.remove()
+    }
+
+
+    if (document.getElementById("emailErr")) {
+      const emailErr = document.getElementById("emailErr")
+      emailErr.remove()
+    }
+
+    if (document.getElementById("companyErr")) {
+      const nameErr = document.getElementById("companyErr")
+      nameErr.remove()
+    }
+
     if (!/\S/.test(company.value)) {
       const companyErr = document.createElement("p");
       companyErr.className = "error";
+      companyErr.id = "companyErr"
       companyErr.textContent = "Введите название компании!";
       companyForm.append(companyErr);
     }
     if (!validatePhone(phoneNumber.value)) {
       const phoneErr = document.createElement("p");
       phoneErr.className = "error";
+      phoneErr.id = "phoneNumberErr"
       phoneErr.textContent = "Введите корректный номер!";
       phoneNumberForm.append(phoneErr);
     }
     if (!validateEmail(email.value) || !/\S/.test(email.value)) {
       const emailErr = document.createElement("p");
       emailErr.className = "error";
+      emailErr.id = "emailErr"
       emailErr.textContent = "Введите корректный адрес!";
       emailForm.append(emailErr);
     }
     if (!/\S/.test(name.value)) {
       const nameErr = document.createElement("p");
       nameErr.className = "error";
+      nameErr.id = "nameErr";
       nameErr.textContent = "Введите ваше Имя!";
       nameForm.append(nameErr);
-    } else {
+    }
+    if (/\S/.test(company.value) && /\S/.test(name.value) && (validateEmail(email.value) || /\S/.test(email.value)) && validatePhone(phoneNumber.value)) {
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
