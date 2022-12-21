@@ -6,6 +6,17 @@ const subscribers = [
         firstName: "Карина",
         lasrName: "Трофимова",
         username: "@nekashtanka",
+        box: "box",
+        company: "google",
+        phoneNumber: "+7293752393952",
+        name: "ЛОХ",
+        email: "trodiso@ivs.ru",
+        telephony: "СВОЯ телефония",
+        robotType: "robotType",
+        numberOfPhones: "количество", 
+        CRMName: "crm",
+        CMS: "Карина - лох",
+
     },
     {
         registrationDate: "22.06.2022",
@@ -14,5 +25,16 @@ const subscribers = [
         firstName: "Николай",
         lasrName: "Николаев",
         username: "@лох",
+        box: "box",
+        company: "google",
+        phoneNumber: "+7293752393952",
+        name: "ЛОХ",
+        email: "trodiso@ivs.ru",
+        telephony: "СВОЯ телефония",
+        robotType: "robotType",
+        numberOfPhones: "количество", 
+        CRMName: "crm",
+        CMS: "Карина - лох",
+
     }
 ]
