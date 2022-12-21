@@ -26,23 +26,17 @@ function description(card) {
   const mainDescription = document.createElement("div");
   mainDescription.className = "mainBox main-description";
 
-  const boxButton = document.createElement("div");
-  boxButton.className = "box-button";
+  const boxButtonBack = document.createElement("div");
+  boxButtonBack.className = "box-button";
   const backButton = document.createElement("button");
   backButton.className = "back";
   backButton.textContent = "Вернуться";
   backButton.addEventListener("click", () => {
     main();
   });
-  const order = document.createElement("button");
-  order.className = "order";
-  order.textContent = "Заказать";
-  order.addEventListener("click", () => {
-    form(card);
-  });
 
-  boxButton.append(backButton, order);
-  mainDescription.append(boxButton);
+  boxButtonBack.append(backButton);
+  mainDescription.append(boxButtonBack);
 
   const box = document.createElement("div");
   box.className = "box";
@@ -89,7 +83,17 @@ function description(card) {
     }
     box.append(blockquote, additionList);
   }
-  mainDescription.append(box);
+  
+  const boxButtonOrder = document.createElement("div");
+  boxButtonOrder.className = "box-button right";
+  const order = document.createElement("button");
+  order.className = "order";
+  order.textContent = "Заказать";
+  order.addEventListener("click", () => {
+    form(card);
+  });
+  boxButtonOrder.append(order)
+  mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
 }
 
@@ -266,12 +270,17 @@ function form(card) {
       description(card);
     });
   }
-  const checkout = document.createElement("div");
-  checkout.className = "checkout";
+  boxButton.append(backButton);
+
+  const boxButtonCheckout = document.createElement("div");
+  boxButtonCheckout.className = "box-button right";
+  const checkout = document.createElement("button");
+  checkout.className = "order";
   checkout.textContent = "Оформить";
-  boxButton.append(backButton, checkout);
+  boxButtonCheckout.append(checkout)
 
   const form = document.createElement("form");
+  form.className = "form";
 
   const companyForm = document.createElement("div");
   companyForm.className = "form-div";
@@ -329,7 +338,6 @@ function form(card) {
   telephonyForm.append(telephonyDescription, telephony);
 
   form.append(
-    boxButton,
     companyForm,
     phoneNumberForm,
     nameForm,
@@ -401,7 +409,7 @@ function form(card) {
       }
     });
   }
-  mainBox.append(form);
+  mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
     if (!/\S/.test(company.value)) {
