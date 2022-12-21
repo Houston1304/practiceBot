@@ -361,7 +361,6 @@ function form(card) {
     robotTypeForm.append(robotTypeDescription, robotType);
     form.append(robotTypeForm);
   } else {
-  } else {
     const numberOfPhonesForm = document.createElement("div");
     numberOfPhonesForm.className = "form-div";
     const numberOfPhonesDescription = document.createElement("p");
