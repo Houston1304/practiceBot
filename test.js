@@ -1,4 +1,4 @@
-import { listCard, hotOffer, checkList, telCheck } from "./array.js";
+import { listCard, hotOffer, checkList, telCheck, replyList, scriptList } from "./array.js";
 
 function ucFirst(str) {
   if (!str) return str;
@@ -18,7 +18,7 @@ function validateEmail(email) {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 }
-
+// описание коробок
 function description(card) {
   const mainBox = document.querySelector(".mainBox");
   mainBox.remove();
@@ -103,7 +103,7 @@ function description(card) {
   mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
 }
-
+// описание горячее предложение 
 function hotOff(card) {
   const mainBox = document.querySelector(".mainBox");
   mainBox.remove();
@@ -152,7 +152,7 @@ function hotOff(card) {
   mainDescription.append(box);
   document.body.append(mainDescription);
 }
-
+// главная страница 
 function main() {
   if (document.querySelector(".mainBox")) {
     const mainDescription = document.querySelector(".mainBox");
@@ -247,16 +247,20 @@ function main() {
   notSuitable.className = "pSuit";
   notSuitable.textContent = "Робот в коробке не подходит?";
 
+  const imageRobot = document.createElement("img");
+  imageRobot.className = "img-robot"
+  imageRobot.src = "робот рука вверхПлащ.png"
+
   const selfRobot = document.createElement("button");
   selfRobot.className = "selfRobo";
   selfRobot.textContent = "Создай своего робота";
   selfRobot.addEventListener("click", () => {
     form(0);
   });
-  divSelf.append(notSuitable, selfRobot);
+  divSelf.append(notSuitable, imageRobot, selfRobot);
   mainBox.append(divSelf);
 }
-
+// квиз
 function form(card) {
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
@@ -294,6 +298,7 @@ function form(card) {
   const companyDescription = document.createElement("p");
   companyDescription.textContent = "Название компании";
   const company = document.createElement("input");
+  company.placeholder = "Введите название вашей компании";
   company.className = "form-input";
   companyForm.append(companyDescription, company);
 
@@ -302,6 +307,7 @@ function form(card) {
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
   const phoneNumber = document.createElement("input");
+  phoneNumber.placeholder = "+7 (999)-999-99-99"
   phoneNumber.className = "form-input";
   phoneNumber.id = "tel";
   phoneNumber.addEventListener("input", mask, false);
@@ -314,6 +320,7 @@ function form(card) {
   const nameDescription = document.createElement("p");
   nameDescription.textContent = "Ваше Имя";
   const name = document.createElement("input");
+  name.placeholder = "Введите ваше имя";
   name.type = "text";
   name.className = "form-input";
   nameForm.append(nameDescription, name);
@@ -327,6 +334,7 @@ function form(card) {
   const emailDescription = document.createElement("p");
   emailDescription.textContent = "Ваш Е-mail";
   const email = document.createElement("input");
+  email.placeholder = "Введите вашу почту";
   email.type = "email";
   email.className = "form-input";
   emailForm.append(emailDescription, email);
@@ -334,12 +342,15 @@ function form(card) {
   const telephonyForm = document.createElement("div");
   telephonyForm.className = "form-div";
   const telephonyDescription = document.createElement("p");
-  telephonyDescription.textContent = "Своя телефония или нет?";
+  telephonyDescription.textContent = "Роботу нужна исходящая связь и номера. Напишите, что подключаем?";
   const telephony = document.createElement("select");
   telephony.className = "form-input";
+  if (card.name === "Пакет-фильтр базы") {
+    telCheck.push("нужен комплекс услуг")
+  }
   for (let tel of telCheck) {
     const telLabel = document.createElement("option");
-    telLabel.textContent = tel;
+    telLabel.textContent = ucFirst(tel);
     telephony.append(telLabel);
   }
   telephonyForm.append(telephonyDescription, telephony);
@@ -365,8 +376,9 @@ function form(card) {
     numberOfPhonesForm.className = "form-div";
     const numberOfPhonesDescription = document.createElement("p");
     numberOfPhonesDescription.textContent =
-      "Напишите планируемое количество  номеров для загрузки в день";
+      "Планируемое количество номеров для загрузки в день";
     const numberOfPhones = document.createElement("input");
+    numberOfPhones.placeholder = "Напишите планируемое количество номеров для загрузки в день"
     numberOfPhones.type = "number";
     numberOfPhones.className = "form-input";
     numberOfPhones.addEventListener("keydown", function (event) {
@@ -411,27 +423,86 @@ function form(card) {
     numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
     form.append(numberOfPhonesForm);
 
-    const CRMForm = document.createElement("div");
-    CRMForm.className = "form-div";
-    const CRMDescription = document.createElement("p");
-    CRMDescription.textContent = "Напишите название CRM, если нужна интеграция";
-    const CRMName = document.createElement("input");
-    CRMName.className = "form-input";
+    if (card.name !== "Пакет-фильтр базы") {
+      const CRMForm = document.createElement("div");
+      CRMForm.className = "form-div";
+      const CRMDescription = document.createElement("p");
+      CRMDescription.textContent = "CRM-система";
+      const CRMName = document.createElement("input");
+      CRMName.placeholder = "Напишите название CRM, если нужна интеграция";
+      CRMName.className = "form-input";
 
-    CRMForm.append(CRMDescription, CRMName);
-    form.append(CRMForm);
+      CRMForm.append(CRMDescription, CRMName);
+      form.append(CRMForm);
+    }
+    if (card.name === "Коробка для интернет-магазинов") {
+      const CMSForm = document.createElement("div");
+      CMSForm.className = "form-div checkbox";
+      const CMSChecbox = document.createElement("input");
+      CMSChecbox.type = "checkbox";
+      CMSChecbox.id = "CMS";
+      const CMSLabel = document.createElement("label");
+      CMSChecbox.for = "CMS";
+      CMSLabel.textContent = "Нужна связка с CMS(с сайтом)";
+      CMSForm.append(CMSChecbox, CMSLabel);
+      form.append(CMSForm);
+    }
+    if (card.name === "Коробка для лидогенерации и коллцентров") {
+      const replyForm = document.createElement("div");
+      replyForm.className = "form-div";
+      const replyDescription = document.createElement("p");
+      replyDescription.textContent = "После сообщения, ваш Лид должен:";
+      const replySelect = document.createElement("select");
+      replySelect.className = "form-input";
+      for (let reply of replyList) {
+        const replyCheck = document.createElement("option");
+        replyCheck.textContent = reply;
+        replySelect.append(replyCheck);
+      }
+      replyForm.append(replyDescription, replySelect);
+      form.append(replyForm);
+    }
+    if (card.name === "Коробка для ЖКХ и УК") {
+      const scriptForm = document.createElement("div");
+      scriptForm.className = "form-div";
+      const scriptDescription = document.createElement("p");
+      scriptDescription.textContent = "Выберете более подходящий сценарий:";
+      const scriptSelect = document.createElement("select");
+      scriptSelect.className = "form-input";
+      for (let script of scriptList) {
+        const scriptCheck = document.createElement("option");
+        scriptCheck.textContent = ucFirst(script);
+        scriptSelect.append(scriptCheck);
+      }
+      scriptForm.append(scriptDescription, scriptSelect);
+      form.append(scriptForm);
+    }
+    if (card.name === "Коробка для онлайн-школ") {
+      const sendingForm = document.createElement("div");
+      sendingForm.className = "form-div checkbox";
+      const sendingChecbox = document.createElement("input");
+      sendingChecbox.type = "checkbox";
+      sendingChecbox.id = "sending";
+      const sendingLabel = document.createElement("label");
+      sendingChecbox.for = "sending";
+      sendingLabel.textContent = "Нужна связка с CMS(с сайтом)";
+      sendingForm.append(sendingChecbox, sendingLabel);
+      form.append(sendingForm);
+    }
     checkout.addEventListener("click", () => {
       if (document.getElementById("numberOfErr")) {
         const numberOfErr = document.getElementById("numberOfErr");
-
         numberOfErr.remove();
-
+        const numberOfPhones = document.getElementById("numberOfPhonesErr");
+        numberOfPhones.className = "form-input";
       }
       if (!/\S/.test(numberOfPhones.value)) {
-        const numberOfErr = document.createElement("p");
+        const numberOfErr = document.createElement("img");
         numberOfErr.className = "error";
         numberOfErr.id = "numberOfErr";
-        numberOfErr.textContent = "Введите количество номеров!";
+        numberOfErr.src = "./icon-warning.png";
+        numberOfPhones.className = "form-input input-error";
+        numberOfPhones.id = "numberOfPhonesErr";
         numberOfPhonesForm.append(numberOfErr);
       }
       if (
@@ -452,54 +523,67 @@ function form(card) {
   checkout.addEventListener("click", () => {
 
     if (document.getElementById("companyErr")) {
-      const companyErr = document.getElementById("companyErr");
+      const companyErr = document.getElementById("companyErr")
       companyErr.remove();
+      const company = document.getElementById("companyError");
+      company.className = "form-input";
     }
 
     if (document.getElementById("phoneErr")) {
       const phoneErr = document.getElementById("phoneErr");
       phoneErr.remove();
+      const phoneNumber = document.getElementById("phoneNumberError");
+      phoneNumber.className = "form-input";
     }
 
     if (document.getElementById("emailErr")) {
       const emailErr = document.getElementById("emailErr");
       emailErr.remove();
+      const email = document.getElementById("emailError");
+      email.className = "form-input";
     }
 
     if (document.getElementById("nameErr")) {
       const nameErr = document.getElementById("nameErr");
       nameErr.remove();
-
+      const name = document.getElementById("nameError");
+      name.className = "form-input";
     }
 
     if (!/\S/.test(company.value)) {
-      const companyErr = document.createElement("p");
+      const companyErr = document.createElement("img");
       companyErr.className = "error";
-
       companyErr.id = "companyErr"
-
-      companyErr.textContent = "Введите название компании!";
+      companyErr.src = "./icon-warning.png";
+      company.className = "form-input input-error";
+      company.id = "companyError"
       companyForm.append(companyErr);
     }
     if (!validatePhone(phoneNumber.value)) {
-      const phoneErr = document.createElement("p");
+      const phoneErr = document.createElement("img");
       phoneErr.className = "error";
       phoneErr.id = "phoneErr";
-      phoneErr.textContent = "Введите корректный номер!";
+      phoneErr.src = "./icon-warning.png";
+      phoneNumber.className = "form-input input-error";
+      phoneNumber.id = "phoneNumberError";
       phoneNumberForm.append(phoneErr);
     }
     if (!validateEmail(email.value) || !/\S/.test(email.value)) {
-      const emailErr = document.createElement("p");
+      const emailErr = document.createElement("img");
       emailErr.className = "error";
       emailErr.id = "emailErr"
-      emailErr.textContent = "Введите корректный адрес!";
+      emailErr.src = "./icon-warning.png";
+      email.className = "form-input input-error";
+      email.id = "emailError";
       emailForm.append(emailErr);
     }
     if (!/\S/.test(name.value)) {
-      const nameErr = document.createElement("p");
+      const nameErr = document.createElement("img");
       nameErr.className = "error";
       nameErr.id = "nameErr";
-      nameErr.textContent = "Введите ваше Имя!";
+      nameErr.src = "./icon-warning.png";
+      name.className = "form-input input-error";
+      name.id = "nameError";
       nameForm.append(nameErr);
     }
 
@@ -519,7 +603,7 @@ function form(card) {
 }
 
 main();
-
+// маска номера телефона
 function mask(event) {
   let matrix = "+7 (___)-___-__-__",
     i = 0,
@@ -530,8 +614,8 @@ function mask(event) {
     return /[_\d]/.test(a) && i < val.length
       ? val.charAt(i++)
       : i >= val.length
-      ? ""
-      : a;
+        ? ""
+        : a;
   });
   if (event.type == "blur") {
     if (this.value.length == 2) this.value = "";
