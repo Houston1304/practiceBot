@@ -17,6 +17,61 @@ const subscribers = [
   },
 ];
 
+const dateBox = document.createElement("div");
+dateBox.className = "dateBox";
+
+const startDate = document.createElement("input");
+startDate.type = "date";
+startDate.className = "startDate";
+
+const endDate = document.createElement("input");
+endDate.type = "date";
+endDate.className = "endDate";
+
+const dash = document.createElement("label");
+dash.className = "dash";
+dash.textContent = " - ";
+
+const searchDate = document.createElement("button");
+searchDate.className = "searchDate";
+searchDate.textContent = "Отфильтровать";
+
+searchDate.addEventListener("click", () => {
+  const tr = document.getElementsByClassName("database");
+
+  const backTTF = document.createElement("button");
+  backTTF.textContent = "Назад";
+  document.body.prepend(backTTF);
+
+  backTTF.addEventListener("click", () => {
+    const mainTable = document.querySelector(".mainTable");
+    mainTable.remove();
+    createTable();
+    backTTF.remove();
+  });
+
+  for (var i = 0; i < tr.length; i++) {
+    var td = tr[i].getElementsByClassName("date")[0];
+    let td_date = td.innerHTML;
+    td_date =
+      td_date.substr(6, 4) +
+      "-" +
+      td_date.substr(3, 2) +
+      "-" +
+      td_date.substr(0, 2);
+
+    let start = startDate.value;
+    let end = endDate.value;
+    if (td_date < start || end < td_date) {
+      tr[i].style.position = "absolute";
+      tr[i].style.visibility = "hidden";
+    }
+  }
+});
+
+document.body.append(dateBox, searchDate);
+dateBox.append(startDate, dash, endDate);
+
 function createTable() {
   const mainTable = document.createElement("table");
   const tbody = document.createElement("tbody");
