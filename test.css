@@ -18,12 +18,9 @@
   }
 
   .form-div {
-    width: 50%;
+    width: 70%;
   }
 
-  .form-div {
-    width: 50%;
-  }
 
   .box {
     width: 95%;
@@ -115,7 +112,7 @@ body {
 }
 
 .mainBox {
-  background-color: rgba(0, 153, 204, 0.12156862745098039);
+  background-color: rgba(136, 178, 230, 0.191);
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -130,10 +127,8 @@ body {
 }
 
 .form-div {
-  display: flex;
   margin: 0 auto;
-  flex-direction: row;
-  justify-content: space-between;
+
 }
 
 .headline {
@@ -261,7 +256,7 @@ aside {
   padding: 10px 20px;
   border-radius: 10px;
   font-style: italic;
-  box-shadow: inset 15px 0 5px -5px rgba(0, 153, 204, 0.47843137254901963);
+  box-shadow: inset 15px 0 5px -5px rgba(136, 178, 230, 0.452);
 }
 
 .nook {
@@ -295,12 +290,18 @@ aside {
 }
 
 .form-input {
-  margin: auto 10px;
-  border: 1px solid grey;
-  border-radius: 5px;
-  width: 35%;
-  padding: 5px;
+  margin: auto;
+  border: none;
+  border-bottom: solid 3px rgba(15, 15, 15, 0.1);
+  border-radius: 0;
+  background-color: transparent;
+  width: 100%;
+  padding: 10px 5px 11px 5px;
   font-size: 14px;
+}
+
+.form-input:hover {
+  border-bottom: solid 3px rgba(15, 15, 15, 0.548);
 }
 
 input::-webkit-outer-spin-button,
@@ -309,10 +310,10 @@ input::-webkit-inner-spin-button {
 }
 
 .error {
-  color: rgb(214, 0, 0);
-  position: absolute;
-  margin-left: 32%;
-  margin-top: -7px;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin-top: -30px;
 }
 
 .pSuit {
@@ -347,9 +348,16 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
 }
 
-.form {
-  background-color: white;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 10px;
+.img-robot {
+  width: 20vw;
+  height: 20vw;
+}
+
+.checkbox {
+  margin: 20px auto 0 auto;
+}
+
+.input-error {
+  border-bottom: solid 3px rgba(182, 0, 0, 0.811);
+  background-color: rgba(255, 3, 3, 0.041);
 }
