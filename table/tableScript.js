@@ -37,10 +37,14 @@ searchDate.className = "searchDate";
 searchDate.textContent = "Отфильтровать";
 
 searchDate.addEventListener("click", () => {
+  if (document.querySelector(".backTTF")) {
+    document.querySelector(".backTTF").remove();
+  }
   const tr = document.getElementsByClassName("database");
 
   const backTTF = document.createElement("button");
   backTTF.textContent = "Назад";
+  backTTF.className = "backTTF";
   document.body.prepend(backTTF);
 
   backTTF.addEventListener("click", () => {
@@ -74,6 +78,7 @@ dateBox.append(startDate, dash, endDate);
 
 function createTable() {
   const mainTable = document.createElement("table");
+  mainTable.className = "mainTable";
   const tbody = document.createElement("tbody");
 
   const regDateHead = document.createElement("th");
@@ -96,8 +101,10 @@ function createTable() {
 
   for (let subscriber of subscribers) {
     const row = document.createElement("tr");
+    row.className = "database";
 
     const rowRegDate = document.createElement("td");
+    rowRegDate.className = "date";
     rowRegDate.textContent = subscriber.registrationDate;
 
     const rowTimeReg = document.createElement("td");
