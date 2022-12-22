@@ -1,8 +1,36 @@
-table{
-    border-collapse: collapse;
-    border-spacing: 0;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-th, td{
-    padding: 10px 20px;
-    border: 1px solid #000;
+th {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  cursor: pointer;
+  background-color: aquamarine;
+}
+
+td {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  background-color: rgba(127, 255, 212, 0.247);
+}
+
+tr:hover {
+  background-color: rgba(127, 255, 212, 0.589);
+}
+
+.dateBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dash {
+  margin: 0 10px 0 10px;
+}
+
+.searchDate {
+  display: flex;
+  margin: 10px auto;
 }
