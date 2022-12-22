@@ -83,8 +83,6 @@ const searchDate = document.createElement("button");
 searchDate.className = "searchDate";
 searchDate.textContent = "Отфильтровать";
 
-let options = { day: "numeric", month: "numeric", year: "numeric" };
-
 searchDate.addEventListener("click", () => {
   const tr = document.getElementsByClassName("database");
 
