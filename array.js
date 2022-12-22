@@ -215,19 +215,19 @@ export const listCard = [
     actual: false,
     hot: false,
   },
-  // {
-  //     id:12,
-  //     name: "Коробка для онлайн-школ",
-  //     price: 2700,
-  //     description: "",
-  //     list: [""],
-  //     priceFull: "",
-  //     connection: "absence/free/individ",
-  //     integration: "absence/free/individ",
-  //     addition: [],
-  //     actual: false,
-  //     hot: false,
-  // },
+  {
+      id:12,
+      name: "Коробка для онлайн-школ",
+      price: 2700,
+      description: "",
+      list: [""],
+      priceFull: "",
+      connection: "absence/free/individ",
+      integration: "absence/free/individ",
+      addition: [],
+      actual: false,
+      hot: false,
+  },
   {
     id: 13,
     name: "Умный IVR (Входящая связь)",
@@ -287,5 +287,13 @@ export const checkList = [
 ]
 
 export const telCheck = [
-  "своя телефония", "телефония + робот"
+  "своя телефония", "нужна телефония"
+]
+
+export const replyList = [
+  "Произнести ответ", "Нажать клавишу для ответа"
+]
+
+export const scriptList = [
+  "напоминание об оплате долга", "прием входящих звонков для передачи показаний"
 ]
