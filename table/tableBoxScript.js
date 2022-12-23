@@ -91,10 +91,7 @@ searchDate.addEventListener("click", () => {
   document.body.prepend(backTTF);
 
   backTTF.addEventListener("click", () => {
-    const mainTable = document.querySelector(".mainTable");
-    mainTable.remove();
-    createTable();
-    backTTF.remove();
+    window.location.href = "tableBox.html";
   });
 
   for (var i = 0; i < tr.length; i++) {
