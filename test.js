@@ -293,8 +293,9 @@ function form(card) {
 
   const boxButtonCheckout = document.createElement("div");
   boxButtonCheckout.className = "box-button right";
-  const checkout = document.createElement("button");
+  const checkout = document.createElement("input");
   checkout.className = "order";
+  checkout.type = "submit";
   checkout.textContent = "Оформить";
   boxButtonCheckout.append(checkout);
 
