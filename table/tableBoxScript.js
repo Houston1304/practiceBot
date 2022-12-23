@@ -143,7 +143,7 @@ function createTable() {
   userNameHead.textContent = "TG (username)";
 
   const boxHead = document.createElement("th");
-  boxHead.textContent = "Название бота";
+  boxHead.textContent = "Название коробки";
 
   const companyHead = document.createElement("th");
   companyHead.textContent = "Компания";
