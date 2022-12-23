@@ -1,4 +1,11 @@
-import { listCard, hotOffer, checkList, telCheck, replyList, scriptList } from "./array.js";
+import {
+  listCard,
+  hotOffer,
+  checkList,
+  telCheck,
+  replyList,
+  scriptList,
+} from "./array.js";
 
 function ucFirst(str) {
   if (!str) return str;
@@ -36,9 +43,10 @@ function description(card) {
   });
 
   const roboImageBox = document.createElement("div");
-  roboImageBox.className = "roboImg";
+  roboImageBox.className = "roboImgBox";
   const roboImage = document.createElement("img");
   roboImage.src = "WQkg7C0g-2A.png";
+  roboImage.className = "roboImg";
   roboImageBox.append(roboImage);
 
   boxButtonBack.append(backButton);
@@ -103,7 +111,7 @@ function description(card) {
   mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
 }
-// описание горячее предложение 
+// описание горячее предложение
 function hotOff(card) {
   const mainBox = document.querySelector(".mainBox");
   mainBox.remove();
@@ -152,7 +160,7 @@ function hotOff(card) {
   mainDescription.append(box);
   document.body.append(mainDescription);
 }
-// главная страница 
+// главная страница
 function main() {
   if (document.querySelector(".mainBox")) {
     const mainDescription = document.querySelector(".mainBox");
@@ -248,8 +256,8 @@ function main() {
   notSuitable.textContent = "Робот в коробке не подходит?";
 
   const imageRobot = document.createElement("img");
-  imageRobot.className = "img-robot"
-  imageRobot.src = "робот рука вверхПлащ.png"
+  imageRobot.className = "img-robot";
+  imageRobot.src = "робот рука вверхПлащ.png";
 
   const selfRobot = document.createElement("button");
   selfRobot.className = "selfRobo";
@@ -307,7 +315,7 @@ function form(card) {
   const phoneNumberDescription = document.createElement("p");
   phoneNumberDescription.textContent = "Номер телефона";
   const phoneNumber = document.createElement("input");
-  phoneNumber.placeholder = "+7 (999)-999-99-99"
+  phoneNumber.placeholder = "+7 (999)-999-99-99";
   phoneNumber.className = "form-input";
   phoneNumber.id = "tel";
   phoneNumber.addEventListener("input", mask, false);
@@ -342,11 +350,12 @@ function form(card) {
   const telephonyForm = document.createElement("div");
   telephonyForm.className = "form-div";
   const telephonyDescription = document.createElement("p");
-  telephonyDescription.textContent = "Роботу нужна исходящая связь и номера. Напишите, что подключаем?";
+  telephonyDescription.textContent =
+    "Роботу нужна исходящая связь и номера. Напишите, что подключаем?";
   const telephony = document.createElement("select");
   telephony.className = "form-input";
   if (card.name === "Пакет-фильтр базы") {
-    telCheck.push("нужен комплекс услуг")
+    telCheck.push("нужен комплекс услуг");
   }
   for (let tel of telCheck) {
     const telLabel = document.createElement("option");
@@ -378,7 +387,8 @@ function form(card) {
     numberOfPhonesDescription.textContent =
       "Планируемое количество номеров для загрузки в день";
     const numberOfPhones = document.createElement("input");
-    numberOfPhones.placeholder = "Напишите планируемое количество номеров для загрузки в день"
+    numberOfPhones.placeholder =
+      "Напишите планируемое количество номеров для загрузки в день";
     numberOfPhones.type = "number";
     numberOfPhones.className = "form-input";
     numberOfPhones.addEventListener("keydown", function (event) {
@@ -521,9 +531,8 @@ function form(card) {
   mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
   checkout.addEventListener("click", () => {
-
     if (document.getElementById("companyErr")) {
-      const companyErr = document.getElementById("companyErr")
+      const companyErr = document.getElementById("companyErr");
       companyErr.remove();
       const company = document.getElementById("companyError");
       company.className = "form-input";
@@ -553,10 +562,10 @@ function form(card) {
     if (!/\S/.test(company.value)) {
       const companyErr = document.createElement("img");
       companyErr.className = "error";
-      companyErr.id = "companyErr"
+      companyErr.id = "companyErr";
       companyErr.src = "./icon-warning.png";
       company.className = "form-input input-error";
-      company.id = "companyError"
+      company.id = "companyError";
       companyForm.append(companyErr);
     }
     if (!validatePhone(phoneNumber.value)) {
@@ -571,7 +580,7 @@ function form(card) {
     if (!validateEmail(email.value) || !/\S/.test(email.value)) {
       const emailErr = document.createElement("img");
       emailErr.className = "error";
-      emailErr.id = "emailErr"
+      emailErr.id = "emailErr";
       emailErr.src = "./icon-warning.png";
       email.className = "form-input input-error";
       email.id = "emailError";
@@ -594,7 +603,6 @@ function form(card) {
       (validateEmail(email.value) || /\S/.test(email.value)) &&
       /\S/.test(name.value)
     ) {
-
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
@@ -614,8 +622,8 @@ function mask(event) {
     return /[_\d]/.test(a) && i < val.length
       ? val.charAt(i++)
       : i >= val.length
-        ? ""
-        : a;
+      ? ""
+      : a;
   });
   if (event.type == "blur") {
     if (this.value.length == 2) this.value = "";
@@ -632,4 +640,4 @@ function setCursorPosition(pos, elem) {
     range.moveStart("character", pos);
     range.select();
   }
-};
+}
