@@ -7,6 +7,22 @@ import {
   scriptList,
 } from "./array.js";
 
+const subscribers = {
+  box: "",
+  company: "",
+  phoneNumber: "",
+  name: "",
+  email: "",
+  telephony: "",
+  robotType: "",
+  numberOfPhones: "",
+  CRMName: "",
+  CMS: "",
+  answer: "",
+  scenario: "",
+  sending: "",
+};
+
 function ucFirst(str) {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);
@@ -293,13 +309,15 @@ function form(card) {
 
   const boxButtonCheckout = document.createElement("div");
   boxButtonCheckout.className = "box-button right";
-  const checkout = document.createElement("button");
+  const checkout = document.createElement("input");
   checkout.className = "order";
+  checkout.type = "submit";
   checkout.textContent = "Оформить";
   boxButtonCheckout.append(checkout);
 
   const form = document.createElement("form");
   form.className = "form";
+  form.method = "GET";
 
   const companyForm = document.createElement("div");
   companyForm.className = "form-div";
@@ -353,6 +371,7 @@ function form(card) {
   telephonyDescription.textContent =
     "Роботу нужна исходящая связь и номера. Напишите, что подключаем?";
   const telephony = document.createElement("select");
+  telephony.id = "telephony";
   telephony.className = "form-input";
   if (card.name === "Пакет-фильтр базы") {
     telCheck.push("нужен комплекс услуг");
@@ -365,137 +384,145 @@ function form(card) {
   telephonyForm.append(telephonyDescription, telephony);
 
   form.append(companyForm, phoneNumberForm, nameForm, emailForm, telephonyForm);
-  if (card === 0) {
-    const robotTypeForm = document.createElement("div");
-    robotTypeForm.className = "form-div";
-    const robotTypeDescription = document.createElement("p");
-    robotTypeDescription.textContent = "Какой тип робота вам нужен?";
-    const robotType = document.createElement("select");
-    robotType.className = "form-input";
-    robotType.id = "robotSelect";
-    for (let checkbox of checkList) {
-      const optionCheck = document.createElement("option");
-      optionCheck.textContent = checkbox;
-      robotType.append(optionCheck);
+
+  const CRMForm = document.createElement("div");
+  CRMForm.className = "form-div";
+  const CRMDescription = document.createElement("p");
+  CRMDescription.textContent = "CRM-система";
+  const CRMName = document.createElement("input");
+  CRMName.placeholder = "Напишите название CRM, если нужна интеграция";
+  CRMName.className = "form-input";
+
+  const robotTypeForm = document.createElement("div");
+  robotTypeForm.className = "form-div";
+  const robotTypeDescription = document.createElement("p");
+  robotTypeDescription.textContent = "Какой тип робота вам нужен?";
+  const robotType = document.createElement("select");
+  robotType.className = "form-input";
+  robotType.id = "robotSelect";
+  for (let checkbox of checkList) {
+    const optionCheck = document.createElement("option");
+    optionCheck.textContent = checkbox;
+    robotType.append(optionCheck);
+  }
+
+  const numberOfPhonesForm = document.createElement("div");
+  numberOfPhonesForm.className = "form-div";
+  const numberOfPhonesDescription = document.createElement("p");
+  numberOfPhonesDescription.textContent =
+    "Планируемое количество номеров для загрузки в день";
+  const numberOfPhones = document.createElement("input");
+  numberOfPhones.placeholder =
+    "Напишите планируемое количество номеров для загрузки в день";
+  numberOfPhones.type = "number";
+  numberOfPhones.className = "form-input";
+  numberOfPhones.addEventListener("keydown", function (event) {
+    if (
+      event.keyCode == 46 ||
+      event.keyCode == 8 ||
+      event.keyCode == 9 ||
+      event.keyCode == 27 ||
+      (event.keyCode == 65 && event.ctrlKey === true) ||
+      (event.keyCode >= 35 && event.keyCode <= 39)
+    ) {
+      return;
+    } else {
+      if (
+        (event.keyCode < 48 || event.keyCode > 57) &&
+        (event.keyCode < 96 || event.keyCode > 105)
+      ) {
+        event.preventDefault();
+      }
     }
+  });
+  numberOfPhones.addEventListener("keydown", function (event) {
+    if (
+      event.keyCode == 46 ||
+      event.keyCode == 8 ||
+      event.keyCode == 9 ||
+      event.keyCode == 27 ||
+      (event.keyCode == 65 && event.ctrlKey === true) ||
+      (event.keyCode >= 35 && event.keyCode <= 39)
+    ) {
+      return;
+    } else {
+      if (
+        (event.keyCode < 48 || event.keyCode > 57) &&
+        (event.keyCode < 96 || event.keyCode > 105)
+      ) {
+        event.preventDefault();
+      }
+    }
+  });
+
+  const CMSForm = document.createElement("div");
+  CMSForm.className = "form-div checkbox";
+  const CMSChecbox = document.createElement("input");
+  CMSChecbox.type = "checkbox";
+  CMSChecbox.id = "CMS";
+  const CMSLabel = document.createElement("label");
+  CMSChecbox.for = "CMS";
+  CMSLabel.textContent = "Нужна связка с CMS(с сайтом)";
+
+  const replyForm = document.createElement("div");
+  replyForm.className = "form-div";
+  const replyDescription = document.createElement("p");
+  replyDescription.textContent = "После сообщения, ваш Лид должен:";
+  const replySelect = document.createElement("select");
+  replySelect.id = "replySelect"
+  replySelect.className = "form-input";
+  for (let reply of replyList) {
+    const replyCheck = document.createElement("option");
+    replyCheck.textContent = reply;
+    replySelect.append(replyCheck);
+  }
+
+  const scriptForm = document.createElement("div");
+  scriptForm.className = "form-div";
+  const scriptDescription = document.createElement("p");
+  scriptDescription.textContent = "Выберете более подходящий сценарий:";
+  const scriptSelect = document.createElement("select");
+  scriptSelect.id = "scriptSelect";
+  scriptSelect.className = "form-input";
+  for (let script of scriptList) {
+    const scriptCheck = document.createElement("option");
+    scriptCheck.textContent = ucFirst(script);
+    scriptSelect.append(scriptCheck);
+  }
+
+  const sendingForm = document.createElement("div");
+  sendingForm.className = "form-div checkbox";
+  const sendingChecbox = document.createElement("input");
+  sendingChecbox.type = "checkbox";
+  sendingChecbox.id = "sending";
+  const sendingLabel = document.createElement("label");
+  sendingChecbox.for = "sending";
+  sendingLabel.textContent = `Нужна рассылка сообщений в мессенджеры после разговора "робот-человек"`;
+
+  if (card === 0) {
     robotTypeForm.append(robotTypeDescription, robotType);
     form.append(robotTypeForm);
   } else {
-    const numberOfPhonesForm = document.createElement("div");
-    numberOfPhonesForm.className = "form-div";
-    const numberOfPhonesDescription = document.createElement("p");
-    numberOfPhonesDescription.textContent =
-      "Планируемое количество номеров для загрузки в день";
-    const numberOfPhones = document.createElement("input");
-    numberOfPhones.placeholder =
-      "Напишите планируемое количество номеров для загрузки в день";
-    numberOfPhones.type = "number";
-    numberOfPhones.className = "form-input";
-    numberOfPhones.addEventListener("keydown", function (event) {
-      if (
-        event.keyCode == 46 ||
-        event.keyCode == 8 ||
-        event.keyCode == 9 ||
-        event.keyCode == 27 ||
-        (event.keyCode == 65 && event.ctrlKey === true) ||
-        (event.keyCode >= 35 && event.keyCode <= 39)
-      ) {
-        return;
-      } else {
-        if (
-          (event.keyCode < 48 || event.keyCode > 57) &&
-          (event.keyCode < 96 || event.keyCode > 105)
-        ) {
-          event.preventDefault();
-        }
-      }
-    });
-    numberOfPhones.addEventListener("keydown", function (event) {
-      if (
-        event.keyCode == 46 ||
-        event.keyCode == 8 ||
-        event.keyCode == 9 ||
-        event.keyCode == 27 ||
-        (event.keyCode == 65 && event.ctrlKey === true) ||
-        (event.keyCode >= 35 && event.keyCode <= 39)
-      ) {
-        return;
-      } else {
-        if (
-          (event.keyCode < 48 || event.keyCode > 57) &&
-          (event.keyCode < 96 || event.keyCode > 105)
-        ) {
-          event.preventDefault();
-        }
-      }
-    });
-
     numberOfPhonesForm.append(numberOfPhonesDescription, numberOfPhones);
     form.append(numberOfPhonesForm);
 
     if (card.name !== "Пакет-фильтр базы") {
-      const CRMForm = document.createElement("div");
-      CRMForm.className = "form-div";
-      const CRMDescription = document.createElement("p");
-      CRMDescription.textContent = "CRM-система";
-      const CRMName = document.createElement("input");
-      CRMName.placeholder = "Напишите название CRM, если нужна интеграция";
-      CRMName.className = "form-input";
-
       CRMForm.append(CRMDescription, CRMName);
       form.append(CRMForm);
     }
     if (card.name === "Коробка для интернет-магазинов") {
-      const CMSForm = document.createElement("div");
-      CMSForm.className = "form-div checkbox";
-      const CMSChecbox = document.createElement("input");
-      CMSChecbox.type = "checkbox";
-      CMSChecbox.id = "CMS";
-      const CMSLabel = document.createElement("label");
-      CMSChecbox.for = "CMS";
-      CMSLabel.textContent = "Нужна связка с CMS(с сайтом)";
       CMSForm.append(CMSChecbox, CMSLabel);
       form.append(CMSForm);
     }
     if (card.name === "Коробка для лидогенерации и коллцентров") {
-      const replyForm = document.createElement("div");
-      replyForm.className = "form-div";
-      const replyDescription = document.createElement("p");
-      replyDescription.textContent = "После сообщения, ваш Лид должен:";
-      const replySelect = document.createElement("select");
-      replySelect.className = "form-input";
-      for (let reply of replyList) {
-        const replyCheck = document.createElement("option");
-        replyCheck.textContent = reply;
-        replySelect.append(replyCheck);
-      }
       replyForm.append(replyDescription, replySelect);
       form.append(replyForm);
     }
     if (card.name === "Коробка для ЖКХ и УК") {
-      const scriptForm = document.createElement("div");
-      scriptForm.className = "form-div";
-      const scriptDescription = document.createElement("p");
-      scriptDescription.textContent = "Выберете более подходящий сценарий:";
-      const scriptSelect = document.createElement("select");
-      scriptSelect.className = "form-input";
-      for (let script of scriptList) {
-        const scriptCheck = document.createElement("option");
-        scriptCheck.textContent = ucFirst(script);
-        scriptSelect.append(scriptCheck);
-      }
       scriptForm.append(scriptDescription, scriptSelect);
       form.append(scriptForm);
     }
     if (card.name === "Коробка для онлайн-школ") {
-      const sendingForm = document.createElement("div");
-      sendingForm.className = "form-div checkbox";
-      const sendingChecbox = document.createElement("input");
-      sendingChecbox.type = "checkbox";
-      sendingChecbox.id = "sending";
-      const sendingLabel = document.createElement("label");
-      sendingChecbox.for = "sending";
-      sendingLabel.textContent = "Нужна связка с CMS(с сайтом)";
       sendingForm.append(sendingChecbox, sendingLabel);
       form.append(sendingForm);
     }
@@ -522,6 +549,13 @@ function form(card) {
         /\S/.test(name.value) &&
         /\S/.test(numberOfPhones.value)
       ) {
+        subscribers.box = card.name;
+        subscribers.company = company.value;
+        subscribers.phoneNumber = phoneNumber.value;
+        subscribers.name = name.value;
+        subscribers.email = email.value;
+        subscribers.numberOfPhones = numberOfPhones.value;
+        subscribers.telephony = document.getElementById("telephony").value;
         alert(
           `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
         );
@@ -603,10 +637,39 @@ function form(card) {
       (validateEmail(email.value) || /\S/.test(email.value)) &&
       /\S/.test(name.value)
     ) {
+      subscribers.box = "Создать робота";
+      subscribers.company = company.value;
+      subscribers.phoneNumber = phoneNumber.value;
+      subscribers.name = name.value;
+      subscribers.email = email.value;
+      subscribers.telephony = document.getElementById("telephony").value;
+      subscribers.robotType = document.getElementById("robotSelect").value;
       alert(
         `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
       );
     }
+
+    if (CRMName.value !== '') {
+      subscribers.CRMName = CRMName.value;
+    }
+
+    if (card.name === "Коробка для лидогенерации и коллцентров") {
+      subscribers.answer = document.getElementById("replySelect").value;
+    }
+    if (card.name === "Коробка для ЖКХ и УК") {
+      subscribers.scenario = document.getElementById("scriptSelect").value;
+    }
+    if (CMSChecbox.checked) {
+      subscribers.CMS = "Нужна связка с CMS(с сайтом)";
+    } else {
+      subscribers.CMS = "";
+    }
+    if (sendingChecbox.checked) {
+      subscribers.sending = `Нужна рассылка сообщений в мессенджеры после разговора "робот-человек"`;
+    } else {
+      subscribers.sending = "";
+    }
+    console.log(subscribers)
   });
 }
 
@@ -622,8 +685,8 @@ function mask(event) {
     return /[_\d]/.test(a) && i < val.length
       ? val.charAt(i++)
       : i >= val.length
-      ? ""
-      : a;
+        ? ""
+        : a;
   });
   if (event.type == "blur") {
     if (this.value.length == 2) this.value = "";
