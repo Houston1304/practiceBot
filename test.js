@@ -671,8 +671,7 @@ function form(card) {
     } else {
       subscribers.sending = "";
     }
-    tg.sendData(subscribers);
-    console.log(subscribers);
+    tg.sendData(JSON.stringify(subscribers));
   });
 }
 
