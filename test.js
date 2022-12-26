@@ -288,6 +288,9 @@ function main() {
 }
 // квиз
 function form(card) {
+  tg.expand();
+  tg.MainButton.text = "Отправить запрос";
+  tg.MainButton.setParams({ color: '#8B00FF' });
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
@@ -528,7 +531,7 @@ function form(card) {
       sendingForm.append(sendingChecbox, sendingLabel);
       form.append(sendingForm);
     }
-    checkout.addEventListener("click", () => {
+    Telegram.WebApp.onEvent('mainButtonClicked', () => {
       if (document.getElementById("numberOfErr")) {
         const numberOfErr = document.getElementById("numberOfErr");
         numberOfErr.remove();
@@ -566,7 +569,7 @@ function form(card) {
   }
   mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
-  checkout.addEventListener("click", () => {
+  Telegram.WebApp.onEvent('mainButtonClicked', () => {
     if (document.getElementById("companyErr")) {
       const companyErr = document.getElementById("companyErr");
       companyErr.remove();
@@ -671,8 +674,7 @@ function form(card) {
     } else {
       subscribers.sending = "";
     }
-    tg.sendData(subscribers);
-    console.log(subscribers);
+    tg.sendData(JSON.stringify(subscribers));
   });
 }
 
