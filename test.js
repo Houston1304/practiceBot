@@ -23,6 +23,8 @@ const subscribers = {
   sending: "",
 };
 
+let tg = window.Telegram.WebApp;
+
 function ucFirst(str) {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);
@@ -669,7 +671,8 @@ function form(card) {
     } else {
       subscribers.sending = "";
     }
-    console.log(subscribers)
+    tg.sendData(subscribers);
+    console.log(subscribers);
   });
 }
 
