@@ -291,6 +291,7 @@ function form(card) {
   tg.expand();
   tg.MainButton.text = "Отправить запрос";
   tg.MainButton.setParams({ color: '#8B00FF' });
+  tg.MainButton.show();
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
