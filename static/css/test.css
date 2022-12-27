@@ -193,6 +193,17 @@ img {
   width: 190px;
 }
 
+.hotRoboImgBox {
+  display: flex;
+  float: right;
+  height: 180px;
+}
+
+.hotRoboImg {
+  height: 100%;
+  width: auto;
+}
+
 .box {
   background-color: white;
   margin: 10px auto;
