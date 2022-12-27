@@ -65,7 +65,7 @@ function form() {
   backButton.textContent = "Вернуться";
 
   backButton.addEventListener("click", () => {
-    window.location.href = "hotOffer.js";
+    main();
   });
   boxButton.append(backButton);
 
@@ -219,6 +219,10 @@ function form() {
   document.body.append(mainBox);
 }
 function main() {
+  if (document.querySelector(".mainBox")) {
+    const mainDescription = document.querySelector(".mainBox");
+    mainDescription.remove();
+  }
   const mainDescription = document.createElement("div");
   mainDescription.className = "mainBox main-description";
   for (let card of hotOffer) {
@@ -262,7 +266,7 @@ function main() {
     roboImageBox.className = "hotRoboImgBox";
     const roboImage = document.createElement("img");
     roboImage.src = "static/pic/98290406-f4e6-4b93-a0e0-d97607914efe.png";
-    roboImage.className = "roboImg";
+    roboImage.className = "hotRoboImg";
     roboImageBox.append(roboImage);
 
     const boxButtonOrder = document.createElement("div");
