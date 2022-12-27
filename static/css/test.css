@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Carlito";
-  src: url("./fonts/Carlito.woff") format("woff"),
-    url("./fonts/Carlito.woff2") format("woff2");
+  src: url("/fonts/Carlito.woff") format("woff"),
+    url("/fonts/Carlito.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
