@@ -7,24 +7,6 @@ import {
   scriptList,
 } from "./array.js";
 
-const subscribers = {
-  box: "",
-  company: "",
-  phoneNumber: "",
-  name: "",
-  email: "",
-  telephony: "",
-  robotType: "",
-  numberOfPhones: "",
-  CRMName: "",
-  CMS: "",
-  answer: "",
-  scenario: "",
-  sending: "",
-};
-
-let tg = window.Telegram.WebApp;
-
 function ucFirst(str) {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);
@@ -63,7 +45,7 @@ function description(card) {
   const roboImageBox = document.createElement("div");
   roboImageBox.className = "roboImgBox";
   const roboImage = document.createElement("img");
-  roboImage.src = "WQkg7C0g-2A.png";
+  roboImage.src = "static/pic/WQkg7C0g-2A.png";
   roboImage.className = "roboImg";
   roboImageBox.append(roboImage);
 
@@ -275,7 +257,7 @@ function main() {
 
   const imageRobot = document.createElement("img");
   imageRobot.className = "img-robot";
-  imageRobot.src = "робот рука вверхПлащ.png";
+  imageRobot.src = "static/pic/робот рука вверхПлащ.png";
 
   const selfRobot = document.createElement("button");
   selfRobot.className = "selfRobo";
@@ -288,9 +270,6 @@ function main() {
 }
 // квиз
 function form(card) {
-  tg.expand();
-  tg.MainButton.text = "Отправить запрос";
-  tg.MainButton.setParams({ color: '#8B00FF' });
   const mainDescription = document.querySelector(".mainBox");
   mainDescription.remove();
   const mainBox = document.createElement("div");
@@ -314,15 +293,15 @@ function form(card) {
 
   const boxButtonCheckout = document.createElement("div");
   boxButtonCheckout.className = "box-button right";
-  const checkout = document.createElement("input");
+  const checkout = document.createElement("button");
   checkout.className = "order";
-  checkout.type = "submit";
   checkout.textContent = "Оформить";
+  checkout.type = "submit";
   boxButtonCheckout.append(checkout);
 
   const form = document.createElement("form");
   form.className = "form";
-  form.method = "GET";
+  form.id = "tg"
 
   const companyForm = document.createElement("div");
   companyForm.className = "form-div";
@@ -351,6 +330,7 @@ function form(card) {
   const nameDescription = document.createElement("p");
   nameDescription.textContent = "Ваше Имя";
   const name = document.createElement("input");
+  name.name = "nam"
   name.placeholder = "Введите ваше имя";
   name.type = "text";
   name.className = "form-input";
@@ -368,6 +348,7 @@ function form(card) {
   email.placeholder = "Введите вашу почту";
   email.type = "email";
   email.className = "form-input";
+  email.name = "email"
   emailForm.append(emailDescription, email);
 
   const telephonyForm = document.createElement("div");
@@ -376,8 +357,8 @@ function form(card) {
   telephonyDescription.textContent =
     "Роботу нужна исходящая связь и номера. Напишите, что подключаем?";
   const telephony = document.createElement("select");
-  telephony.id = "telephony";
   telephony.className = "form-input";
+  telephony.id = "telephony"
   if (card.name === "Пакет-фильтр базы") {
     telCheck.push("нужен комплекс услуг");
   }
@@ -531,152 +512,211 @@ function form(card) {
       sendingForm.append(sendingChecbox, sendingLabel);
       form.append(sendingForm);
     }
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
-      if (document.getElementById("numberOfErr")) {
-        const numberOfErr = document.getElementById("numberOfErr");
-        numberOfErr.remove();
-        const numberOfPhones = document.getElementById("numberOfPhonesErr");
-        numberOfPhones.className = "form-input";
-      }
-      if (!/\S/.test(numberOfPhones.value)) {
-        const numberOfErr = document.createElement("img");
-        numberOfErr.className = "error";
-        numberOfErr.id = "numberOfErr";
-        numberOfErr.src = "./icon-warning.png";
-        numberOfPhones.className = "form-input input-error";
-        numberOfPhones.id = "numberOfPhonesErr";
-        numberOfPhonesForm.append(numberOfErr);
-      }
-      if (
-        /\S/.test(company.value) &&
-        validatePhone(phoneNumber.value) &&
-        (validateEmail(email.value) || /\S/.test(email.value)) &&
-        /\S/.test(name.value) &&
-        /\S/.test(numberOfPhones.value)
-      ) {
-        subscribers.box = card.name;
-        subscribers.company = company.value;
-        subscribers.phoneNumber = phoneNumber.value;
-        subscribers.name = name.value;
-        subscribers.email = email.value;
-        subscribers.numberOfPhones = numberOfPhones.value;
-        subscribers.telephony = document.getElementById("telephony").value;
-        alert(
-          `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
-        );
-      }
-    });
   }
-  mainBox.append(boxButton, form, boxButtonCheckout);
-  document.body.append(mainBox);
-  Telegram.WebApp.onEvent('mainButtonClicked', () => {
-    if (document.getElementById("companyErr")) {
-      const companyErr = document.getElementById("companyErr");
-      companyErr.remove();
-      const company = document.getElementById("companyError");
-      company.className = "form-input";
+  checkout.addEventListener("click", function (e) {
+    if (document.getElementById("numberOfErr")) {
+      const numberOfErr = document.getElementById("numberOfErr");
+      numberOfErr.remove();
+      const numberOfPhones = document.getElementById("numberOfPhonesErr");
+      numberOfPhones.className = "form-input";
     }
-
-    if (document.getElementById("phoneErr")) {
-      const phoneErr = document.getElementById("phoneErr");
-      phoneErr.remove();
-      const phoneNumber = document.getElementById("phoneNumberError");
-      phoneNumber.className = "form-input";
+    if (!/\S/.test(numberOfPhones.value)) {
+      const numberOfErr = document.createElement("img");
+      numberOfErr.className = "error";
+      numberOfErr.id = "numberOfErr";
+      numberOfErr.src = "static/pic/icon-warning.png";
+      numberOfPhones.className = "form-input input-error";
+      numberOfPhones.id = "numberOfPhonesErr";
+      numberOfPhonesForm.append(numberOfErr);
     }
-
-    if (document.getElementById("emailErr")) {
-      const emailErr = document.getElementById("emailErr");
-      emailErr.remove();
-      const email = document.getElementById("emailError");
-      email.className = "form-input";
-    }
-
-    if (document.getElementById("nameErr")) {
-      const nameErr = document.getElementById("nameErr");
-      nameErr.remove();
-      const name = document.getElementById("nameError");
-      name.className = "form-input";
-    }
-
-    if (!/\S/.test(company.value)) {
-      const companyErr = document.createElement("img");
-      companyErr.className = "error";
-      companyErr.id = "companyErr";
-      companyErr.src = "./icon-warning.png";
-      company.className = "form-input input-error";
-      company.id = "companyError";
-      companyForm.append(companyErr);
-    }
-    if (!validatePhone(phoneNumber.value)) {
-      const phoneErr = document.createElement("img");
-      phoneErr.className = "error";
-      phoneErr.id = "phoneErr";
-      phoneErr.src = "./icon-warning.png";
-      phoneNumber.className = "form-input input-error";
-      phoneNumber.id = "phoneNumberError";
-      phoneNumberForm.append(phoneErr);
-    }
-    if (!validateEmail(email.value) || !/\S/.test(email.value)) {
-      const emailErr = document.createElement("img");
-      emailErr.className = "error";
-      emailErr.id = "emailErr";
-      emailErr.src = "./icon-warning.png";
-      email.className = "form-input input-error";
-      email.id = "emailError";
-      emailForm.append(emailErr);
-    }
-    if (!/\S/.test(name.value)) {
-      const nameErr = document.createElement("img");
-      nameErr.className = "error";
-      nameErr.id = "nameErr";
-      nameErr.src = "./icon-warning.png";
-      name.className = "form-input input-error";
-      name.id = "nameError";
-      nameForm.append(nameErr);
-    }
-
     if (
-      card == 0 &&
       /\S/.test(company.value) &&
       validatePhone(phoneNumber.value) &&
       (validateEmail(email.value) || /\S/.test(email.value)) &&
-      /\S/.test(name.value)
+      /\S/.test(name.value) &&
+      /\S/.test(numberOfPhones.value)
     ) {
-      subscribers.box = "Создать робота";
-      subscribers.company = company.value;
-      subscribers.phoneNumber = phoneNumber.value;
-      subscribers.name = name.value;
-      subscribers.email = email.value;
-      subscribers.telephony = document.getElementById("telephony").value;
-      subscribers.robotType = document.getElementById("robotSelect").value;
-      alert(
-        `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё вопросов и предложат демо»`
-      );
-    }
 
-    if (CRMName.value !== '') {
-      subscribers.CRMName = CRMName.value;
-    }
+      // Первая отправка axios при нажатии -------------------------------------------------------------------------------------------------------
+      const TOKEN = "5800428906:AAHYoNC9cQ3qmqhNmK5JXw1tLM49JtZugpM";
+      const CHAT_ID = "-1001857114920";
+      const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
 
-    if (card.name === "Коробка для лидогенерации и коллцентров") {
-      subscribers.answer = document.getElementById("replySelect").value;
+      e.preventDefault();
+
+      let message = `<b>💥ЗАЯВКА С САЙТА!</b>\n`;
+      message += `<b>Коробка:<b> ${card.name}\n`
+      message += `<b>Название компании: </b> ${company.value}\n`
+      message += `<b>Телефонный номер: </b> ${phoneNumber.value}\n`
+      message += `<b>Отправитель: </b> ${name.value}\n`
+      message += `<b>Кол-во обрабатываемой телефонии: </b> ${numberOfPhones.value }\n`
+      message += `<b>Телефония: </b> ${ document.getElementById("telephony").value }\n`
+
+      if (CRMName.value !== '') {
+        message += `<b>CRM: </b> ${ CRMName.value }`
+      }
+
+      if (CMSChecbox.checked) {
+        message += `<b>CMS: Нужна связка с сайтом</b>\n`
+      }
+
+      if (card.name === "Коробка для лидогенерации и коллцентров") {
+        message += `<b>Лид должен: </b> ${ document.getElementById("replySelect").value }\n`
+      }
+
+      if (card.name === "Коробка для ЖКХ и УК") {
+        message += `<b>Сценарий: </b> ${ document.getElementById("scriptSelect").value }\n`
+      }
+
+      if (sendingChecbox.checked) {
+        message += `<b>Рассылка сообщений в мессенджеры после разговора "робот-человек": Нужна</b>\n`
+      }
+
+      axios.post(URI_API, {
+        chat_id: CHAT_ID,
+        parse_mode: 'html',
+        text: message
+      })
+        .then((res) => {
+          alert(
+            `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё пару вопросов и предложат демо...`
+          );
+          name.value = '';
+          email.value = '';
+          phoneNumber.value = '';
+          company.value = '';
+          numberOfPhones.value = '';
+        })
+        .catch((err) => {
+          alert(
+            `Извините, ${name.value}! Сервис не работает, попробуйте оформить заказ через telegram...`
+          );
+          console.warn(err);
+        })
+      //-----------------------------------------------------------------------------------------------------------------------------------------
+
     }
-    if (card.name === "Коробка для ЖКХ и УК") {
-      subscribers.scenario = document.getElementById("scriptSelect").value;
-    }
-    if (CMSChecbox.checked) {
-      subscribers.CMS = "Нужна связка с CMS(с сайтом)";
-    } else {
-      subscribers.CMS = "";
-    }
-    if (sendingChecbox.checked) {
-      subscribers.sending = `Нужна рассылка сообщений в мессенджеры после разговора "робот-человек"`;
-    } else {
-      subscribers.sending = "";
-    }
-    tg.sendData(JSON.stringify(subscribers));
   });
+
+mainBox.append(boxButton, form, boxButtonCheckout);
+document.body.append(mainBox);
+checkout.addEventListener("click", function (e) {
+  if (document.getElementById("companyErr")) {
+    const companyErr = document.getElementById("companyErr");
+    companyErr.remove();
+    const company = document.getElementById("companyError");
+    company.className = "form-input";
+  }
+
+  if (document.getElementById("phoneErr")) {
+    const phoneErr = document.getElementById("phoneErr");
+    phoneErr.remove();
+    const phoneNumber = document.getElementById("phoneNumberError");
+    phoneNumber.className = "form-input";
+  }
+
+  if (document.getElementById("emailErr")) {
+    const emailErr = document.getElementById("emailErr");
+    emailErr.remove();
+    const email = document.getElementById("emailError");
+    email.className = "form-input";
+  }
+
+  if (document.getElementById("nameErr")) {
+    const nameErr = document.getElementById("nameErr");
+    nameErr.remove();
+    const name = document.getElementById("nameError");
+    name.className = "form-input";
+  }
+
+  if (!/\S/.test(company.value)) {
+    const companyErr = document.createElement("img");
+    companyErr.className = "error";
+    companyErr.id = "companyErr";
+    companyErr.src = "static/pic/icon-warning.png";
+    company.className = "form-input input-error";
+    company.id = "companyError";
+    companyForm.append(companyErr);
+  }
+  if (!validatePhone(phoneNumber.value)) {
+    const phoneErr = document.createElement("img");
+    phoneErr.className = "error";
+    phoneErr.id = "phoneErr";
+    phoneErr.src = "static/pic/icon-warning.png";
+    phoneNumber.className = "form-input input-error";
+    phoneNumber.id = "phoneNumberError";
+    phoneNumberForm.append(phoneErr);
+  }
+  if (!validateEmail(email.value) || !/\S/.test(email.value)) {
+    const emailErr = document.createElement("img");
+    emailErr.className = "error";
+    emailErr.id = "emailErr";
+    emailErr.src = "static/pic/icon-warning.png";
+    email.className = "form-input input-error";
+    email.id = "emailError";
+    emailForm.append(emailErr);
+  }
+  if (!/\S/.test(name.value)) {
+    const nameErr = document.createElement("img");
+    nameErr.className = "error";
+    nameErr.id = "nameErr";
+    nameErr.src = "static/pic/icon-warning.png";
+    name.className = "form-input input-error";
+    name.id = "nameError";
+    nameForm.append(nameErr);
+  }
+
+  if (
+    card == 0 &&
+    /\S/.test(company.value) &&
+    validatePhone(phoneNumber.value) &&
+    (validateEmail(email.value) || /\S/.test(email.value)) &&
+    /\S/.test(name.value)
+  ) {
+
+    // Вторая отправка axios при нажатии -------------------------------------------------------------------------------------------------------
+    const TOKEN = "5800428906:AAHYoNC9cQ3qmqhNmK5JXw1tLM49JtZugpM";
+    const CHAT_ID = "-1001857114920";
+    const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+    e.preventDefault();
+
+    let message = `<b>💥ЗАЯВКА С САЙТА!</b>\n`;
+    message += `<b>Коробка: Собрать робота<b>\n`
+    message += `<b>Отправитель: </b> ${name.value}\n`
+    message += `<b>Почта: </b> ${email.value}\n`
+    message += `<b>Телефонный номер: </b> ${phoneNumber.value}\n`
+    message += `<b>Название компании: </b> ${company.value}\n`
+    message += `<b>Телефония: </b> ${document.getElementById("telephony").value}\n`
+    message += `<b>Тип робота: </b> ${document.getElementById("robotSelect").value}\n`
+
+    axios.post(URI_API, {
+      chat_id: CHAT_ID,
+      parse_mode: 'html',
+      text: message
+    })
+      .then((res) => {
+        alert(
+          `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё пару вопросов и предложат демо...`
+        );
+        name.value = '';
+        email.value = '';
+        phoneNumber.value = '';
+        company.value = '';
+      })
+      .catch((err) => {
+        alert(
+          `Извините, ${name.value}! Сервис не работает, попробуйте оформить заказ через telegram...`
+        );
+        console.warn(err);
+      })
+    //-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+  }
+});
 }
+
 
 main();
 // маска номера телефона
