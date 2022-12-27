@@ -572,6 +572,8 @@ function form(card) {
         message += `<b>Рассылка сообщений в мессенджеры после разговора "робот-человек": Нужна</b>\n`
       }
 
+      JSON.stringify(message);
+      
       axios.post(URI_API, {
         chat_id: CHAT_ID,
         parse_mode: 'html',
@@ -690,6 +692,8 @@ checkout.addEventListener("click", function (e) {
     message += `<b>Телефония: </b> ${document.getElementById("telephony").value}\n`
     message += `<b>Тип робота: </b> ${document.getElementById("robotSelect").value}\n`
 
+    JSON.stringify(message);
+    
     axios.post(URI_API, {
       chat_id: CHAT_ID,
       parse_mode: 'html',
