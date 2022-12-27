@@ -532,7 +532,7 @@ function form(card) {
     if (
       /\S/.test(company.value) &&
       validatePhone(phoneNumber.value) &&
-      (validateEmail(email.value) || /\S/.test(email.value)) &&
+      (validateEmail(email.value) && /\S/.test(email.value)) &&
       /\S/.test(name.value) &&
       /\S/.test(numberOfPhones.value)
     ) {
@@ -672,7 +672,7 @@ checkout.addEventListener("click", function (e) {
     card == 0 &&
     /\S/.test(company.value) &&
     validatePhone(phoneNumber.value) &&
-    (validateEmail(email.value) || /\S/.test(email.value)) &&
+    (validateEmail(email.value) && /\S/.test(email.value)) &&
     /\S/.test(name.value)
   ) {
 
