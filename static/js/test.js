@@ -7,6 +7,8 @@ import {
   scriptList,
 } from "./array.js";
 
+import { hotMain } from "./hotOffer.js";
+
 function ucFirst(str) {
   if (!str) return str;
   return str[0].toUpperCase() + str.slice(1);
@@ -113,7 +115,7 @@ function description(card) {
 }
 
 // главная страница
-function main() {
+export function main() {
   if (document.querySelector(".mainBox")) {
     const mainDescription = document.querySelector(".mainBox");
     mainDescription.remove();
@@ -137,7 +139,22 @@ function main() {
     button.className = "button";
     button.textContent = "Подробнее";
     button.addEventListener("click", () => {
-      window.location.href = "hotOffer.html";
+      hotMain();
+
+      let mainDescription = document.querySelector(".mainBox");
+
+      const boxButton = document.createElement("div");
+      boxButton.className = "box-button";
+      const backButton = document.createElement("button");
+      backButton.className = "back";
+      backButton.textContent = "Вернуться";
+
+      backButton.addEventListener("click", () => {
+        main();
+      });
+
+      boxButton.append(backButton);
+      mainDescription.prepend(boxButton);
     });
 
     div.append(imageBox, pName, button);
