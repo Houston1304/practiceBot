@@ -209,6 +209,52 @@ function form() {
       name.id = "nameError";
       nameForm.append(nameErr);
     }
+    if (
+      /\S/.test(company.value) &&
+      validatePhone(phoneNumber.value) &&
+      validateEmail(email.value) &&
+      /\S/.test(email.value) &&
+      /\S/.test(name.value)
+    ) {
+      const TOKEN = "5800428906:AAHYoNC9cQ3qmqhNmK5JXw1tLM49JtZugpM";
+      const CHAT_ID = "-1001857114920";
+      const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+      e.preventDefault();
+
+      let message = `<b>💥ЗАЯВКА С САЙТА!</b>\n`;
+      message += `<b>Коробка: Горячее предложение</b>`;
+      message += `<b>Название компании: </b> ${company.value}\n`;
+      message += `<b>Телефонный номер: </b> ${phoneNumber.value}\n`;
+      message += `<b>Отправитель: </b> ${name.value}\n`;
+      message += `<b>Телефония: </b> ${
+        document.getElementById("telephony").value
+      }\n`;
+
+      JSON.stringify(message);
+
+      axios
+        .post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: "html",
+          text: message,
+        })
+        .then((res) => {
+          alert(
+            `${name.value}, спасибо! Сценаристы Бот N. свяжутся с Вами, возможно зададут ещё пару вопросов и предложат демо...`
+          );
+          name.value = "";
+          email.value = "";
+          phoneNumber.value = "";
+          company.value = "";
+        })
+        .catch((err) => {
+          alert(
+            `Извините, ${name.value}! Сервис не работает, попробуйте оформить заказ через telegram...`
+          );
+          console.warn(err);
+        });
+    }
   });
 
   telephonyForm.append(telephonyDescription, telephony);
