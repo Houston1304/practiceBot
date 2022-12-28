@@ -1,4 +1,5 @@
 import { telCheck } from "./array.js";
+import { main } from "./test.js";
 
 const hotOffer = [
   {
@@ -65,7 +66,7 @@ function form() {
   backButton.textContent = "Вернуться";
 
   backButton.addEventListener("click", () => {
-    main();
+    hotMain();
   });
   boxButton.append(backButton);
 
@@ -264,11 +265,12 @@ function form() {
   mainBox.append(boxButton, form, boxButtonCheckout);
   document.body.append(mainBox);
 }
-function main() {
+export function hotMain() {
   if (document.querySelector(".mainBox")) {
     const mainDescription = document.querySelector(".mainBox");
     mainDescription.remove();
   }
+
   const mainDescription = document.createElement("div");
   mainDescription.className = "mainBox main-description";
   for (let card of hotOffer) {
@@ -338,7 +340,7 @@ function main() {
     document.body.append(mainDescription);
   }
 }
-main();
+hotMain();
 function mask(event) {
   let matrix = "+7 (___)-___-__-__",
     i = 0,
