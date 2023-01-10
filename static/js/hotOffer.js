@@ -302,6 +302,17 @@ export function hotMain() {
       list.append(elementList);
     }
 
+    const boxButton = document.createElement("div");
+    boxButton.className = "box-button";
+    const backButton = document.createElement("button");
+    backButton.className = "back";
+    backButton.textContent = "Вернуться";
+  
+    backButton.addEventListener("click", () => {
+      main();
+    });
+    boxButton.append(backButton);
+
     const boxButtonCheckout = document.createElement("div");
     boxButtonCheckout.className = "box-button right";
     const checkout = document.createElement("button");
@@ -336,7 +347,7 @@ export function hotMain() {
       list,
       roboImageBox
     );
-    mainDescription.append(box, boxButtonOrder);
+    mainDescription.append(boxButton, box, boxButtonOrder);
     document.body.append(mainDescription);
   }
 }
