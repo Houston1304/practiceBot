@@ -141,20 +141,9 @@ export function main() {
     button.addEventListener("click", () => {
       hotMain();
 
-      let mainDescription = document.querySelector(".mainBox");
-
-      const boxButton = document.createElement("div");
-      boxButton.className = "box-button";
-      const backButton = document.createElement("button");
-      backButton.className = "back";
-      backButton.textContent = "Вернуться";
-
       backButton.addEventListener("click", () => {
         main();
       });
-
-      boxButton.append(backButton);
-      mainDescription.prepend(boxButton);
     });
 
     div.append(imageBox, pName, button);
