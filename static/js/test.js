@@ -112,6 +112,7 @@ function description(card) {
   boxButtonOrder.append(order);
   mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
+  window.scrollTo(0, 0);
 }
 
 // главная страница
@@ -236,6 +237,7 @@ export function main() {
   });
   divSelf.append(notSuitable, imageRobot, selfRobot);
   mainBox.append(divSelf);
+  window.scrollTo(0, 0);
 }
 // квиз
 function form(card) {
@@ -697,6 +699,7 @@ function form(card) {
       //-----------------------------------------------------------------------------------------------------------------------------------------------
     }
   });
+  window.scrollTo(0, 0);
 }
 
 main();
