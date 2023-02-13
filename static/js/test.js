@@ -112,6 +112,7 @@ function description(card) {
   boxButtonOrder.append(order);
   mainDescription.append(box, boxButtonOrder);
   document.body.append(mainDescription);
+  window.scrollTo(0, 0);
 }
 
 // главная страница
@@ -225,6 +226,7 @@ export function main() {
   });
   divSelf.append(notSuitable, imageRobot, selfRobot);
   mainBox.append(divSelf);
+  window.scrollTo(0, 0);
 }
 // квиз
 function form(card) {
@@ -471,7 +473,26 @@ function form(card) {
       form.append(sendingForm);
     }
   }
+  const politicForm = document.createElement("div");
+  politicForm.className = "form-div checkbox";
+  const politicChecbox = document.createElement("input");
+  politicChecbox.type = "checkbox";
+  politicChecbox.id = "politicCheckbox";
+  const politicLabel = document.createElement("label");
+  politicChecbox.for = "politicCheckbox";
+  politicLabel.textContent =
+    "Я ПРИНИМАЮ УСЛОВИЯ ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ И ЛИЦЕНЗИОННОГО СОГЛАШЕНИЯ";
+
+  politicForm.append(politicChecbox, politicLabel);
+  form.append(politicForm);
+
   checkout.addEventListener("click", function (e) {
+    if (document.getElementById("politicErr")) {
+      const politicErr = document.getElementById("politicErr");
+      politicErr.remove();
+      const politicChecbox = document.getElementById("politicError");
+      politicChecbox.className = "form-input";
+    }
     if (document.getElementById("numberOfErr")) {
       const numberOfErr = document.getElementById("numberOfErr");
       numberOfErr.remove();
@@ -487,13 +508,20 @@ function form(card) {
       numberOfPhones.id = "numberOfPhonesErr";
       numberOfPhonesForm.append(numberOfErr);
     }
+    if (politicChecbox.checked != true) {
+      const politicErr = document.createElement("label");
+      politicErr.textContent = ` \r\n *НЕОБХОДИМО ПРИНЯТЬ УСЛОВИЯ ПОЛИТИКИ`;
+      politicErr.id = "politicError";
+      politicForm.appendChild(politicErr);
+    }
     if (
       /\S/.test(company.value) &&
       validatePhone(phoneNumber.value) &&
       validateEmail(email.value) &&
       /\S/.test(email.value) &&
       /\S/.test(name.value) &&
-      /\S/.test(numberOfPhones.value)
+      /\S/.test(numberOfPhones.value) &&
+      politicChecbox.checked == true
     ) {
       // Первая отправка axios при нажатии -------------------------------------------------------------------------------------------------------
       const TOKEN = "5800428906:AAHYoNC9cQ3qmqhNmK5JXw1tLM49JtZugpM";
@@ -686,6 +714,7 @@ function form(card) {
       //-----------------------------------------------------------------------------------------------------------------------------------------------
     }
   });
+  window.scrollTo(0, 0);
 }
 
 main();
