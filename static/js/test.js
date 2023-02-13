@@ -487,11 +487,9 @@ function form(card) {
   form.append(politicForm);
 
   checkout.addEventListener("click", function (e) {
-    if (document.getElementById("politicErr")) {
-      const politicErr = document.getElementById("politicErr");
+    if (document.getElementById("politicError")) {
+      const politicErr = document.getElementById("politicError");
       politicErr.remove();
-      const politicChecbox = document.getElementById("politicError");
-      politicChecbox.className = "form-input";
     }
     if (document.getElementById("numberOfErr")) {
       const numberOfErr = document.getElementById("numberOfErr");
