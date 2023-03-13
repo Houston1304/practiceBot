@@ -76,3 +76,8 @@ input::-webkit-inner-spin-button {
   margin-left: 50px;
   width: 250px;
 }
+
+.searchName {
+  display: flex;
+  margin: 10px auto;
+}

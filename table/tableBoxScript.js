@@ -3,8 +3,7 @@ const subscribers = [
     registrationDate: "13.06.2022",
     registrationTime: "00:20:00",
     userID: "46930862",
-    firstName: "Николай",
-    lastName: "Николаев",
+    firstName: "Николай Николаев",
     username: "@лох",
     box: "box",
     company: "google",
@@ -24,8 +23,7 @@ const subscribers = [
     registrationDate: "02.06.2022",
     registrationTime: "22:20:00",
     userID: "78523972",
-    firstName: "Амир",
-    lastName: "Амирович",
+    firstName: "Амир Амирович",
     username: "@nekashtanka",
     box: "box",
     company: "google",
@@ -45,8 +43,7 @@ const subscribers = [
     registrationDate: "02.06.2022",
     registrationTime: "22:20:00",
     userID: "78523972",
-    firstName: "Карина",
-    lastName: "Трофимова",
+    firstName: "Карина Трофимова",
     username: "@nekashtanka",
     box: "box",
     company: "google",
@@ -63,6 +60,25 @@ const subscribers = [
     sending: "Нет",
   },
 ];
+
+function tableSearch() {
+  var phrase = document.getElementById("searchName");
+  var table = document.getElementById("mainTable");
+  var regPhrase = new RegExp(phrase.value, "i");
+  var flag = false;
+  for (var i = 0; i < table.rows.length; i++) {
+    flag = false;
+    for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+      flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+      if (flag) break;
+    }
+    if (flag) {
+      table.rows[i].style.display = "";
+    } else {
+      table.rows[i].style.display = "none";
+    }
+  }
+}
 
 function createFilter() {
   const dateBox = document.createElement("div");
@@ -83,6 +99,14 @@ function createFilter() {
   const searchDate = document.createElement("button");
   searchDate.className = "searchDate";
   searchDate.textContent = "Отфильтровать";
+
+  const searchName = document.createElement("input");
+  searchName.className = "searchName";
+  searchName.id = "searchName";
+  searchName.placeholder = "Поиск...";
+  searchName.addEventListener("keyup", () => {
+    tableSearch();
+  });
 
   searchDate.addEventListener("click", () => {
     const tr = document.getElementsByClassName("database");
@@ -114,13 +138,14 @@ function createFilter() {
     }
   });
 
-  document.body.append(dateBox, searchDate);
+  document.body.append(dateBox, searchDate, searchName);
   dateBox.append(startDate, dash, endDate);
 }
 
 function createTable() {
   const mainTable = document.createElement("table");
   mainTable.className = "mainTable";
+  mainTable.id = "mainTable";
   const tbody = document.createElement("tbody");
 
   const regDateHead = document.createElement("th");
@@ -134,9 +159,6 @@ function createTable() {
 
   const firstNameHead = document.createElement("th");
   firstNameHead.textContent = "TG (first_name)";
-
-  const lastNameHead = document.createElement("th");
-  lastNameHead.textContent = "TG (last_name)";
 
   const userNameHead = document.createElement("th");
   userNameHead.textContent = "TG (username)";
@@ -197,9 +219,6 @@ function createTable() {
     const rowFirstName = document.createElement("td");
     rowFirstName.textContent = subscriber.firstName;
 
-    const rowLastName = document.createElement("td");
-    rowLastName.textContent = subscriber.lastName;
-
     const rowUsername = document.createElement("td");
     rowUsername.textContent = subscriber.username;
 
@@ -247,7 +266,6 @@ function createTable() {
       rowTimeReg,
       rowUserId,
       rowFirstName,
-      rowLastName,
       rowUsername,
       rowBox,
       rowCompany,
@@ -271,7 +289,6 @@ function createTable() {
     timeRegHead,
     userIdHead,
     firstNameHead,
-    lastNameHead,
     userNameHead,
     boxHead,
     companyHead,

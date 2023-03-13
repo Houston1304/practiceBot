@@ -3,19 +3,43 @@ const subscribers = [
     registrationDate: "02.06.2022",
     registrationTime: "22:20:00",
     userID: "78523972",
-    firstName: "Карина",
-    lastName: "Трофимова",
+    firstName: "Карина Трофимова",
+    username: "@nekashtanka",
+  },
+  {
+    registrationDate: "02.06.2022",
+    registrationTime: "22:20:00",
+    userID: "78523972",
+    firstName: "Мария Трофимова",
     username: "@nekashtanka",
   },
   {
     registrationDate: "22.06.2022",
     registrationTime: "00:20:00",
     userID: "46930862",
-    firstName: "Николай",
-    lastName: "Николаев",
+    firstName: "Николай Николаев",
     username: "@лох",
   },
 ];
+
+function tableSearch() {
+  var phrase = document.getElementById("searchName");
+  var table = document.getElementById("mainTable");
+  var regPhrase = new RegExp(phrase.value, "i");
+  var flag = false;
+  for (var i = 0; i < table.rows.length; i++) {
+    flag = false;
+    for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+      flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+      if (flag) break;
+    }
+    if (flag) {
+      table.rows[i].style.display = "";
+    } else {
+      table.rows[i].style.display = "none";
+    }
+  }
+}
 
 function createFilter() {
   const dateBox = document.createElement("div");
@@ -35,7 +59,16 @@ function createFilter() {
 
   const searchDate = document.createElement("button");
   searchDate.className = "searchDate";
+  searchDate.id = "searchDate";
   searchDate.textContent = "Отфильтровать";
+
+  const searchName = document.createElement("input");
+  searchName.className = "searchName";
+  searchName.id = "searchName";
+  searchName.placeholder = "Поиск...";
+  searchName.addEventListener("keyup", () => {
+    tableSearch();
+  });
 
   searchDate.addEventListener("click", () => {
     if (document.querySelector(".backTTF")) {
@@ -71,13 +104,14 @@ function createFilter() {
     }
   });
 
-  document.body.append(dateBox, searchDate);
+  document.body.append(dateBox, searchDate, searchName);
   dateBox.append(startDate, dash, endDate);
 }
 
 function createTable() {
   const mainTable = document.createElement("table");
   mainTable.className = "mainTable";
+  mainTable.id = "mainTable";
   const tbody = document.createElement("tbody");
 
   const regDateHead = document.createElement("th");
@@ -91,9 +125,6 @@ function createTable() {
 
   const firstNameHead = document.createElement("th");
   firstNameHead.textContent = "TG (first_name)";
-
-  const lastNameHead = document.createElement("th");
-  lastNameHead.textContent = "TG (last_name)";
 
   const userNameHead = document.createElement("th");
   userNameHead.textContent = "TG (username)";
@@ -115,20 +146,10 @@ function createTable() {
     const rowFirstName = document.createElement("td");
     rowFirstName.textContent = subscriber.firstName;
 
-    const rowLastName = document.createElement("td");
-    rowLastName.textContent = subscriber.lastName;
-
     const rowUsername = document.createElement("td");
     rowUsername.textContent = subscriber.username;
 
-    row.append(
-      rowRegDate,
-      rowTimeReg,
-      rowUserId,
-      rowFirstName,
-      rowLastName,
-      rowUsername
-    );
+    row.append(rowRegDate, rowTimeReg, rowUserId, rowFirstName, rowUsername);
     tbody.append(row);
   }
 
@@ -137,7 +158,6 @@ function createTable() {
     timeRegHead,
     userIdHead,
     firstNameHead,
-    lastNameHead,
     userNameHead
   );
   mainTable.append(tbody);
@@ -159,18 +179,17 @@ const confirmPassword = document.createElement("button");
 confirmPassword.id = "confirmPassword";
 confirmPassword.textContent = "Подтвердить";
 
-passwordForm.append(passwordInput, confirmPassword);
-popUp.append(passwordForm);
-document.body.append(popUp);
+// passwordForm.append(passwordInput, confirmPassword);
+// popUp.append(passwordForm);
+// document.body.append(popUp);
 
 passwordForm.addEventListener("submit", () => {
   if (passwordInput.value == 123) {
-    createFilter();
-    createTable();
     popUp.remove();
   }
 });
-
+createFilter();
+createTable();
 var getCellValue = function (tr, idx) {
   return tr.children[idx].innerText || tr.children[idx].textContent;
 };
